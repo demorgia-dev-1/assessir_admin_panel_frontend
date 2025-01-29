@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import BarChart from "../../Charts/BarChart";
-import { BASE_URL } from "../../constant";
+import BarChart from "../Charts/BarCharts";
+import { BASE_URL } from '../constant';
 
 function BatchAnalytics() {
   console.log("batch analytics");

@@ -14,21 +14,9 @@ import {
 import "./App.css";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Profile from "./components/Profile";
-import ManageCountry from "./components/admin/ManageCountry";
 const Dashboard = lazy(() => import("./components/Dashboard/Dashboard"));
 const Login = lazy(() => import("./components/Login"));
-const ManageState = lazy(() =>
-  import("./components/admin/ManageState")
-);
-const ManageCity = lazy(() =>
-  import("./components/admin/ManageCity")
-);
-const ManageSector = lazy(() =>
-  import("./components/admin/ManageSector")
-);
-const ManageCompany = lazy(() =>
-  import("./components/admin/ManageCompany")
-);
+
 const SubAdminManage = lazy(() =>
   import("./components/admin/SubAdminManage")
 );
@@ -88,15 +76,7 @@ const SummaryReport = lazy(() =>
 const BatchAnalytics = lazy(() =>
   import("./components/admin/BatchAnalytics")
 );
-const AssignedBatches = lazy(()=> 
-import('./components/admin/AssignedBatches')
-)
-const OngoingBatches = lazy(()=> 
-  import('./components/admin/OngoingBatches')
-)
-const CompletedBatches = lazy(()=> 
-  import('./components/admin/CompletedBatches')
-  )
+
 
 function App() {
 
@@ -163,11 +143,6 @@ function App() {
                   element={<Layout userType={userType} />}
                 >
                   <Route path="dashboard" element={<Dashboard />} />
-                  <Route path="manageCountry" element={<ManageCountry />} />
-                  <Route path="manageState" element={<ManageState />} />
-                  <Route path="manageCity" element={<ManageCity />} />
-                  <Route path="manageSector" element={<ManageSector />} />
-                  <Route path="manageCompany" element={<ManageCompany />} />
                   <Route path="manageJobRole" element={<ManageJobRole />} />
                   <Route path="manageSubAdmin" element={<SubAdminManage />} />
                   <Route
@@ -191,13 +166,7 @@ function App() {
                     element={<AssessorEvidence />}
                   />
                   <Route path="assignBatch" element={<ManageAssignTest />} />
-                  <Route path="assignedBatches" element={<AssignedBatches />} />
-                  <Route path="ongoingBatches" element={<OngoingBatches />} />
-                  <Route
-                    path="completedBatches"
-                    element={<CompletedBatches />}
-                  />
-                  <Route path="allBatches" element={<AllBatches />} />
+                 
                   <Route
                     path="batchEvidence/candidate/:candidateId"
                     element={<EvidenceComponent />}
