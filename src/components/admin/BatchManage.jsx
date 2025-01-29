@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import * as XLSX from 'xlsx';
 import { BASE_URL } from '../constant';
-import { createBatch, deleteBatch, extendEndDate, fetchBatchesBySectorJobRole, setSelectedJobRole, setSelectedSector, updateBatch } from '../features/batchSlice';
+import { createBatch, deleteBatch, fetchBatchesBySectorJobRole, updateBatch, extendEndDate, setSelectedJobRole, setSelectedSector, deleteCandidateFromBatch, clearBatchResponses } from '../features/batchSlice';
 import { fetchAllCountries } from '../features/countrySlice';
 import { fetchJobRolesBySector } from '../features/jobRoleSlice';
 import { fetchSectors } from '../features/subAdminSlice';
@@ -74,6 +74,8 @@ const ManageBatch = () => {
     const { sectors, jobRoles, selectedSector, selectedJobRole, batches } = useSelector(state => state.batch);
 
     const showButtons = selectedSector && selectedJobRole && !formVisible;
+
+    const type = sessionStorage.getItem('type');
 
 
     const handleSubmit = async (e) => {
@@ -537,10 +539,21 @@ const ManageBatch = () => {
 
     const handleDeleteClick = (rowData) => {
         setSelectedBatch(rowData);
-        setConfirmAction('delete');
+        setConfirmAction('Delete Batch');
         setIsConfirmVisible(true);
     };
 
+    const handleDeleteCandidates = (rowData) => {
+        setSelectedBatch(rowData);
+        setConfirmAction('Delete Candidates');
+        setIsConfirmVisible(true);
+    };
+
+    const handleClearResponses = (rowData) => {    
+        setSelectedBatch(rowData);
+        setConfirmAction('Clear Responses');
+        setIsConfirmVisible(true);
+    };
 
     const handleCopyId = (rowData) => {
         if (rowData && rowData._id) {
@@ -556,8 +569,12 @@ const ManageBatch = () => {
         }
         const batchId = selectedBatch._id;
 
-        if (confirmAction === 'delete') {
+        if (confirmAction === 'Delete Batch') {
             await dispatch(deleteBatch(batchId));
+        } else if (confirmAction === 'Delete Candidates') {
+            await dispatch(deleteCandidateFromBatch(batchId));
+        } else if(confirmAction === 'Clear Responses') {
+            await dispatch(clearBatchResponses(batchId))
         }
         dispatch(fetchBatchesBySectorJobRole({ sectorId: selectedSector?._id, jobRoleId: selectedJobRole._id }));
         setIsConfirmVisible(false);
@@ -598,8 +615,6 @@ const ManageBatch = () => {
 
     };
 
-
-
     const menuRefs = useRef([]);
     const actionBodyTemplate = (rowData, options) => {
         const items = [
@@ -611,10 +626,23 @@ const ManageBatch = () => {
 
             },
             {
-                label: 'Delete',
+                label: 'Clear Batch Responses',
+                icon: 'pi pi-trash',
+                command: () => handleClearResponses(rowData),
+                disabled: type === 'sub-admin'
+            },
+            {
+                label: 'Delete Candidates',
+                icon: 'pi pi-user-minus',
+                command: () => handleDeleteCandidates(rowData),
+                disabled: type === 'sub-admin'
+                
+            },
+            {
+                label: 'Delete Batch',
                 icon: 'pi pi-trash',
                 command: () => handleDeleteClick(rowData),
-                disabled: rowData.status !== 'not-assigned'
+                disabled: type === 'sub-admin'
             },
             {
                 label: 'View',
@@ -725,7 +753,6 @@ const ManageBatch = () => {
 
     }
 
-
     return (
         <div className="max-w-[20rem]  xs:max-w-[23rem] sm:max-w-[60rem] my-2  md:max-w-[86rem]  lg:max-w-[100%] xl:w-[100%]
         mx-auto mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
@@ -819,7 +846,6 @@ const ManageBatch = () => {
                     </div>
                 )}
 
-
             </div>
 
             <div className="flex flex-col mt-2 space-y-2">
@@ -909,6 +935,7 @@ const ManageBatch = () => {
                                     className="px-2 py-2 text-sm md:px-3 md:py-2 border-2 rounded-md focus:outline-none"
                                 />
                             </div>
+
 
                             <div className="flex flex-col flex-1">
                                 <label htmlFor="assessmentDuration" className="font-semibold">Assessment Duration(Minutes)</label>
@@ -1265,7 +1292,7 @@ const ManageBatch = () => {
                         />
                     </span>
                 </div>
-                <div className="max-w-[23rem] p-1 md:max-w-[50rem] sm:max-w-[30rem] lg:max-w-[76rem]">
+                <div className="max-w-[23rem] p-1 md:max-w-[50rem] sm:max-w-[30rem] lg:max-w-[76rem] xl:max-w-[86rem]">
 
                     <DataTable
                         value={filteredBatches}
