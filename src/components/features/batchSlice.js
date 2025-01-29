@@ -161,6 +161,43 @@ export const deleteBatch = createAsyncThunk('batch/deleteBatch', async (batchId,
     }
 });
 
+export const deleteCandidateFromBatch = createAsyncThunk('batch/deleteCandidateFromBatch', async (batchId, { rejectWithValue }) => {
+    try {
+        await axios.delete(`${BASE_URL}company/batches/${batchId}/candidates`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + sessionStorage.getItem("token")
+            }
+        });
+
+        toast.success("Candidate deleted successfully!");
+        return { batchId };
+    } catch (error) {
+        const errorMessage = error.response?.data?.message || error.message;
+        toast.error(`Failed to delete candidate: ${errorMessage}`);
+        return rejectWithValue(errorMessage);
+    }
+});
+
+export const clearBatchResponses = createAsyncThunk('batch/clearBatchResponses', async (batchId,{rejectWithValue}) => {  
+    try {
+        await axios.delete(`${BASE_URL}company/batches/${batchId}/candidates/clear-responses`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + sessionStorage.getItem("token")
+            }
+        });
+        toast.success("Responses cleared successfully!");
+        return { batchId };
+    } catch (error) {
+        const errorMessage = error.response?.data?.message || error.message;
+        toast.error(`Failed to clear responses: ${errorMessage}`);
+        return rejectWithValue(errorMessage);
+    }
+});
+
+
+
 const batchSlice = createSlice({
     name: 'batch',
     initialState: {
@@ -294,6 +331,27 @@ const batchSlice = createSlice({
                 state.batches[index] = action.payload;
             })
             .addCase(extendEndDate.rejected, (state, action) => {
+                state.error = action.payload;
+            })
+            .addCase(deleteCandidateFromBatch.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(deleteCandidateFromBatch.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.batches = state.batches.filter((batch) => batch._id !== action.payload.batchId);
+            })
+            .addCase(deleteCandidateFromBatch.rejected, (state, action) => {
+                state.error = action.payload;
+            })
+            .addCase(clearBatchResponses.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(clearBatchResponses.fulfilled, (state, action) => {
+                state.isLoading = false;
+                const index = state.batches.findIndex((batch) => batch._id === action.payload.batchId);
+                state.batches[index] = action.payload;
+            })
+            .addCase(clearBatchResponses.rejected, (state, action) => {
                 state.error = action.payload;
             });
     }
