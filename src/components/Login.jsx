@@ -155,28 +155,29 @@ function Login({ onLogin }) {
                                 />
                             </motion.div>
                             <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4 }}
-                            >
-                                <label htmlFor="password" className="text-md font-medium text-gray-900 block mb-2">Password</label>
-                                <input
-                                    type={passwordVisible ? 'text' : 'password'}
-                                    id="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out bg-transparent backdrop-blur-[40px]"
-                                    placeholder="Enter your password"
-                                    autoComplete="current-password"
-                                />
-                                <span
-                                    onClick={togglePasswordVisibility}
-                                    className="absolute text-xl right-5 top-12 cursor-pointer text-gray-500"
-                                >
-                                    {passwordVisible ? <FaEye /> : <FaEyeSlash />}
-                                </span>
-                            </motion.div>
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.4 }}
+>
+    <label htmlFor="password" className="text-sm font-medium text-gray-700 block mb-2">Password</label>
+    <div className="relative">
+        <input
+            type={passwordVisible ? 'text' : 'password'}
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out pr-10"
+            placeholder="Enter your password"
+        />
+        <motion.span
+            onClick={togglePasswordVisibility}
+            className="absolute text-xl cursor-pointer text-gray-500 right-3 top-1/2 transform -translate-y-1/2"
+        >
+            {passwordVisible ? <FaEye /> : <FaEyeSlash />}
+        </motion.span>
+    </div>
+</motion.div>
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center">
                                     <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
