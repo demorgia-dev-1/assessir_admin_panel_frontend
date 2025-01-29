@@ -7,7 +7,7 @@ import { GrNext, GrPrevious } from "react-icons/gr";
 import { MdLocationPin, MdOutlineWarning } from "react-icons/md";
 import { TbDownload } from "react-icons/tb";
 import { useParams } from 'react-router-dom';
-import { BASE_URL } from '../../constant';
+import { BASE_URL } from '../constant';
 
 const CandidateEvidence = () => {
     const { candidateId } = useParams();
