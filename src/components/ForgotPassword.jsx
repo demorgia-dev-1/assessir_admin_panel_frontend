@@ -4,7 +4,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import { BASE_URL } from '../constant';
+import { BASE_URL } from './constant';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
