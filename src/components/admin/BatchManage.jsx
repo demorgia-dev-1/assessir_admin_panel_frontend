@@ -77,6 +77,7 @@ const ManageBatch = () => {
 
     const type = sessionStorage.getItem('type');
 
+    console.log('type', type);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -622,7 +623,7 @@ const ManageBatch = () => {
                 label: 'Edit',
                 icon: 'pi pi-pencil',
                 command: () => handleEditClick(rowData),
-                disabled: rowData.status !== 'not-assigned'
+                disabled: type === 'sub-admin' && rowData.status !== 'not-assigned'
 
             },
             {
@@ -642,7 +643,7 @@ const ManageBatch = () => {
                 label: 'Delete Batch',
                 icon: 'pi pi-trash',
                 command: () => handleDeleteClick(rowData),
-                disabled: rowData.status !== 'not-assigned'
+                disabled: type === 'sub-admin' && rowData.status !== 'not-assigned'
             },
             {
                 label: 'View',
