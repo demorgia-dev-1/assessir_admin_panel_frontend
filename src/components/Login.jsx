@@ -64,12 +64,14 @@ function Login({ onLogin }) {
                 const token = response.data.data.token;
                 const adminId = response.data.data.companyAdminDetails._id;
                 const name = response.data.data.companyAdminDetails.name;
+                const type = response.data.data.companyAdminDetails.type;
                 toast.success('Login successful!');
                 setFormData({ email: '', password: '' });
                 sessionStorage.setItem("token", token);
                 sessionStorage.setItem("adminId", adminId);
                 sessionStorage.setItem("name", name);
-                onLogin('admin');
+                sessionStorage.setItem("type", type);
+                onLogin(type);
                 setRedirect(true);
 
             } catch (error) {
