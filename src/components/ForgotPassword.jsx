@@ -169,7 +169,7 @@ const ForgotPassword = () => {
                     </motion.button>
                 </form>
                 <div className="text-center">
-                    <Link to="/adminlogin" className="text-blue-600 hover:text-blue-500">
+                    <Link to="/login" className="text-blue-600 hover:text-blue-500">
                         Back to Login
                     </Link>
                 </div>
