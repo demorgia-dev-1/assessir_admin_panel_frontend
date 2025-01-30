@@ -254,6 +254,11 @@ const Sidebar = ({ userType }) => {
                         </li>
                     </Link>
 
+                    <Link to="/batchAnalytics">
+                        <li className="px-3 py-2 md:px-4 md:py-3 hover:bg-purple-600 cursor-pointer border-l-2 border-white/10 ml-4 transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 hover:rounded-lg text-xs md:text-sm">
+                            Batch Analytics
+                        </li>
+                        </Link>
                 </ul>
             )}
         </>

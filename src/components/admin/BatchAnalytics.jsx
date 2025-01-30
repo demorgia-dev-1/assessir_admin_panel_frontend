@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import BarChart from "../Charts/BarCharts";
-import { BASE_URL } from '../constant';
+import BarChart from "../../Charts/BarChart";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { BASE_URL } from "../../constant";
+import toast from "react-hot-toast";
+import { MdContentCopy } from "react-icons/md";
 
 function BatchAnalytics() {
-  console.log("batch analytics");
   const [matrics, setMatrics] = React.useState();
-  console.log("matrics = ", matrics);
   const params = useParams();
+  const location = useLocation();
   const prepareMatrics = (report) => {
     const matrics = {
       batchNo: report.batchNo,
@@ -155,15 +156,36 @@ function BatchAnalytics() {
       },
     ],
   });
-  const [noswisePassFailOptions, setNoswisePassFailOptions] = useState({
+  const [noswisePassFailOptions] = useState({
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
+      title: {
+        display: true,
+        text: "Candidates Passed vs Failed by Topic and Batch",
+      },
       legend: {
         position: "top",
       },
-      title: {
-        display: true,
-        text: "NOS WISE PASS/FAIL CANDIDATES",
+      tooltip: {
+        mode: "index",
+        intersect: false,
+      },
+    },
+    scales: {
+      x: {
+        stacked: true,
+        title: {
+          display: true,
+          text: "NOS - BATCH NO",
+        },
+      },
+      y: {
+        stacked: true,
+        title: {
+          display: true,
+          text: "Number of Candidates",
+        },
       },
     },
   });
@@ -210,22 +232,12 @@ function BatchAnalytics() {
       },
     ],
   });
-  const [noswiseAttemptsOptions, setNoswiseAttemptsOptions] = useState({
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "NOS WISE ATTEMPTS",
-      },
-    },
-  });
+  const [noswiseAttemptsOptions, setNoswiseAttemptsOptions] = useState();
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `${BASE_URL}company/batch-analytics/${params.link}`
+        `${BASE_URL}company/batch-analytics/${params.linkId}`
       );
       const data = await response.json();
       console.log(data);
@@ -236,6 +248,7 @@ function BatchAnalytics() {
       for (let i = 0; i < reports.length; i++) {
         mat.push(prepareMatrics(reports[i]));
       }
+      console.log("matrics", mat);
       setMatrics(mat);
       setOverallBatchPerformanceData({
         labels: mat?.map((batch) => batch.batchNo),
@@ -293,22 +306,35 @@ function BatchAnalytics() {
         },
       });
       setNoswisePassFailData({
-        labels: Object.keys(mat[0].nosWisePassFailCandidates),
+        labels: mat
+          .map((batch) => {
+            const noses = Object.keys(batch.nosWisePassFailCandidates);
+            return noses.map((nos) => `${nos} - ${batch.batchNo}`);
+          })
+          .flat(),
         datasets: [
-          ...mat.map((batch) => {
-            const randomColor = `rgba(${Math.floor(
-              Math.random() * 256
-            )}, ${Math.floor(Math.random() * 256)}, ${Math.floor(
-              Math.random() * 256
-            )}, 0.8)`;
-            return {
-              label: batch.batchNo,
-              data: Object.values(batch.nosWisePassFailCandidates).map(
-                (attempt) => attempt.passCandidates
-              ),
-              backgroundColor: randomColor,
-            };
-          }),
+          {
+            label: "Passed",
+            data: mat
+              .map((batch) => {
+                return Object.values(batch.nosWisePassFailCandidates).map(
+                  (value) => value.passCandidates
+                );
+              })
+              .flat(),
+            backgroundColor: "rgba(255, 7, 76, 0.8)",
+          },
+          {
+            label: "Failed",
+            data: mat
+              .map((batch) => {
+                return Object.values(batch.nosWisePassFailCandidates).map(
+                  (value) => value.failCandidates
+                );
+              })
+              .flat(),
+            backgroundColor: "rgba(255, 99, 132, 0.7)",
+          },
         ],
       });
       setOverallPassFailAbsentPresentCandidates({
@@ -362,40 +388,89 @@ function BatchAnalytics() {
     fetchData();
   }, []);
 
+  const [currentChart, setCurrentChart] = useState("overallBatchScore");
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+   toast.success('Link copied to clipboard');
+  };
+
+
+
   return (
-    <div className="p-5 flex-col items-center justify-center gap-5">
+    <div className="flex-col items-center justify-center gap-5 p-[25px]">
+      <h2 className="text-xl font-bold mb-4 ml-1 text-center sm:text-left">Batch Analytics</h2>
+      <div className="flex items-center mb-7">
+        <a href={window.location.href} className="text-sm text-gray-600 mr-4 font-semibold">
+          Share Link: <span className="text-blue-600">{window.location.href}</span> 
+        </a>
+        <button
+          onClick={copyToClipboard}
+          className="bg-blue-600 text-white text-sm px-3 py-1 rounded-md flex items-center gap-1"
+        >
+         <MdContentCopy /> <span>Copy</span>
+        </button>
+      </div>
+      <label
+        htmlFor="analytics"
+        className="block mb-2 text-sm font-medium text-gray-900"
+      >
+        Select an option
+      </label>
+      <select
+        id="analytics"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 pr-8 "
+        onChange={(e) => {
+          console.log(e.target.value);
+          setCurrentChart(e.target.value);
+        }}
+      >
+        <option value="overallBatchScore" selected>
+          Overall Batch Score
+        </option>
+        <option value="noswiseBatchScroe">NOS WISE BATCH PERFORMANCE</option>
+        <option value="overallBatchStats">OVERALL STATS</option>
+        <option value="noswisePassFailCandidates">
+          NOS WISE PASS FAIL CANDIDATES
+        </option>
+      </select>
       <div
         id="chart"
-        className="batch-analytics flex w-screen  items-center justify-between gap-5"
+        className="batch-analytics flex flex-col items-center justify-center gap-5 w-full"
       >
-        <div className="w-[45%]">
-          <BarChart
-            options={overallBatchPerformanceOptions}
-            data={overallBatchPerformanceData}
-          />
-        </div>
-        <div className="w-[45%]">
-          <BarChart
-            options={noswiseBatchPerformanceOptions}
-            data={noswiseBatchPerformanceData}
-          />
-        </div>
+        {currentChart === "overallBatchScore" && (
+          <div className="w-full max-w-7xl h-[40rem]">
+            <BarChart
+              options={overallBatchPerformanceOptions}
+              data={overallBatchPerformanceData}
+            />
+          </div>
+        )}
+        {currentChart === "noswiseBatchScroe" && (
+          <div className="w-full max-w-7xl h-[40rem]">
+            <BarChart
+              options={noswiseBatchPerformanceOptions}
+              data={noswiseBatchPerformanceData}
+            />
+          </div>
+        )}
+        {currentChart === "overallBatchStats" && (
+          <div className="w-full max-w-7xl h-[40rem]">
+            <BarChart
+              options={overallPassFailAbsentPresentCandidatesOptions}
+              data={overallPassFailAbsentPresentCandidates}
+            />
+          </div>
+        )}
+        {currentChart === "noswisePassFailCandidates" && (
+          <div className="w-full max-w-7xl h-[40rem]">
+            <BarChart
+              options={noswisePassFailOptions}
+              data={noswisePassFailData}
+            />
+          </div>
+        )}
       </div>
-      <div className=" w-screen flex items-center justify-between gap-5">
-        <div className="w-[45%]">
-          <BarChart
-            options={noswisePassFailOptions}
-            data={noswisePassFailData}
-          />
-        </div>
-        <div className="w-[45%]">
-          <BarChart
-            options={overallPassFailAbsentPresentCandidatesOptions}
-            data={overallPassFailAbsentPresentCandidates}
-          />
-        </div>
-      </div>
-      <BarChart options={noswiseAttemptsOptions} data={noswiseAttempts} />
     </div>
   );
 }
