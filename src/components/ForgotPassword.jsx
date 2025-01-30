@@ -59,7 +59,7 @@ const ForgotPassword = () => {
             await axios.post(`${BASE_URL}company/reset-password`, { email, otp, password: newPassword });
 
             toast.success('Password updated successfully');
-            navigate('/adminlogin');
+            navigate('/login');
 
         } catch (error) {
             toast.error(error.response?.data?.message || 'Error updating password');
