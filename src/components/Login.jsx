@@ -159,7 +159,7 @@ function Login({ onLogin }) {
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.4 }}
 >
-    <label htmlFor="password" className="text-sm font-medium text-gray-700 block mb-2">Password</label>
+    <label htmlFor="password" className="text-md font-medium text-gray-900 block mb-2">Password</label>
     <div className="relative">
         <input
             type={passwordVisible ? 'text' : 'password'}
@@ -167,7 +167,7 @@ function Login({ onLogin }) {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out pr-10"
+            className="bg-transparent backdrop-blur-[40px] w-full px-4 py-3 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
             placeholder="Enter your password"
         />
         <motion.span
