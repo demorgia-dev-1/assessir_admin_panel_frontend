@@ -76,6 +76,7 @@ const SummaryReport = lazy(() =>
 const BatchAnalytics = lazy(() =>
   import("./components/admin/BatchAnalytics")
 );
+const ManageBatchAnalytics = lazy(() => import("./components/admin/ManageBatchAnalytics"));
 
 
 function App() {
@@ -123,6 +124,7 @@ function App() {
             }
           >
             <Routes>
+            <Route path="/batch-analytics/:linkId" element={<BatchAnalytics/>}/>
               <Route path="/" element={<Navigate to="/login" replace />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route
@@ -174,6 +176,10 @@ function App() {
                   <Route path="batchResult" element={<BatchResult />} />
                   <Route path="profile" element={<Profile />} />
                   <Route path="summary-report" element={<SummaryReport />} />
+                  <Route
+                    path="batchAnalytics"
+                    element={<ManageBatchAnalytics />}
+                  />
                 </Route>
               )}
             </Routes>
