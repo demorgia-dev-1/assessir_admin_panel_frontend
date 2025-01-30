@@ -642,7 +642,7 @@ const ManageBatch = () => {
                 label: 'Delete Batch',
                 icon: 'pi pi-trash',
                 command: () => handleDeleteClick(rowData),
-                disabled: type === 'sub-admin'
+                disabled: rowData.status !== 'not-assigned'
             },
             {
                 label: 'View',
