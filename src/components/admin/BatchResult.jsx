@@ -283,16 +283,24 @@ const BatchResult = () => {
                 if (item.logs.length === 0) {
                     return [{
                         Name: item.name || '',
-                        Enroll_No: item.enrollmentNo || '',
+                        Enroll_No: item?.enrollmentNo || '',
                         Batch_No: batch.no || '',
-                        Job_Role: jobRole.qpCode || '',
+                        Job_Role: jobRole?.qpCode || '',
                         NOS: '',
                         Question_Bank: questionBank.name || '',
                         Question: '',
                         Options: '',
+                        Correct_Answer: "",
                         Submitted_Answer: '',
-                        Max_Marks: 0,
-                        Obtained_Marks: 0,
+                        Max_Marks:  0,
+                        Obtained_Marks:  0,
+                        isFinalAnswer: '',
+                        isCorrect: '',
+                        Theory_Start_Time: '',
+                        Theory_End_Time: '',
+                        Question_Start_Time: '',
+                        Question_End_Time: '',
+                        Time_Taken: ''
 
                     }];
                 }
@@ -338,6 +346,7 @@ const BatchResult = () => {
                 });
             });
 
+            console.log('Formatted data:', formattedData);
 
             const worksheet = XLSX.utils.json_to_sheet([]);
             XLSX.utils.sheet_add_aoa(worksheet, [
