@@ -136,6 +136,26 @@ export const lockQuestionSet = createAsyncThunk('question/lockQuestionSet', asyn
     }
 });
 
+export const unlockQuestionSet = createAsyncThunk('question/unlockQuestionSet', async (questionSetId, { rejectWithValue }) => {
+    try {
+        const response = await axios.patch(`${BASE_URL}company/question-banks/${questionSetId}/unlock`, {}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + sessionStorage.getItem("token")
+            }
+        });
+        if (response.status === 200) {
+            toast.success("Question set unlocked successfully!");
+        }
+        console.log("Question set unlocked successfully:", response.data.data);
+        return response.data.data;
+    } catch (error) {
+        console.error("Error unlocking question set:", error);
+        toast.error(error.response?.data?.message || "Error unlocking question set");
+        return rejectWithValue(error.response ? error.response.data : error.message);
+    }
+});
+
 
 const questionSetSlice = createSlice({
     name: 'questionSet',
@@ -196,6 +216,18 @@ const questionSetSlice = createSlice({
                 state.questionSets[index] = action.payload;
             })
             .addCase(lockQuestionSet.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(unlockQuestionSet.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(unlockQuestionSet.fulfilled, (state, action) => {
+                state.isLoading = false;
+                const index = state.questionSets.findIndex((questionSet) => questionSet._id === action.payload._id);
+                state.questionSets[index] = action.payload;
+            })
+            .addCase(unlockQuestionSet.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })

@@ -375,6 +375,7 @@ const ManageAssessor = () => {
         navigator.clipboard.writeText(rowData._id);
         toast.success('Assessor ID copied to clipboard!');
     };
+    const type = sessionStorage.getItem("type");
 
     const menuRefs = useRef([]);
     const actionBodyTemplate = (rowData, options) => {
@@ -388,7 +389,8 @@ const ManageAssessor = () => {
             {
                 label: 'Delete',
                 icon: 'pi pi-trash',
-                command: () => handleDeleteClick(rowData)
+                command: () => handleDeleteClick(rowData),
+                disabled: type === 'sub-admin'
             },
             {
                 label: 'View',

@@ -82,6 +82,24 @@ export const lockJobRole = createAsyncThunk('jobRole/lockJobRole', async (jobRol
     }
 });
 
+export const unlockJobRole = createAsyncThunk('jobRole/unlockJobRole', async (jobRoleId, { rejectWithValue }) => {
+    try {
+        const response = await axios.patch(`${BASE_URL}company/jobs/${jobRoleId}/unlock`, {}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        });
+        console.log(response);
+        toast.success('Job role unlocked successfully!');
+        return response.data.data;
+    } catch (error) {
+        console.error(error);
+        toast.error(error.response.data.message);
+        return rejectWithValue(error.response.data);
+    }
+});
+
 export const updateJobRole = createAsyncThunk(
     'jobRole/updateJobRole',
     async ({ _id, updatedJobRole }, { rejectWithValue }) => {
@@ -192,6 +210,21 @@ const jobRoleSlice = createSlice({
                 }
             })
             .addCase(lockJobRole.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message;
+            })
+            .addCase(unlockJobRole.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(unlockJobRole.fulfilled, (state, action) => {
+                state.isLoading = false;
+                const updatedJobRole = action.payload;
+                const index = state.jobRoles?.findIndex(jobRole => jobRole?._id === updatedJobRole?._id);
+                if (index !== -1) {
+                    state.jobRoles[index].isLocked = false;
+                }
+            })
+            .addCase(unlockJobRole.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.error.message;
             })
