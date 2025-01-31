@@ -11,10 +11,10 @@ export const fetchSectors = createAsyncThunk(
                     'Content-Type': 'application/json',
                     'authorization': "Bearer " + sessionStorage.getItem("token"),
                 },
-
             });
             console.log(response);
-            return response.data.data;
+            const sortedData = response.data.data.sort((a, b) => a.name.localeCompare(b.name));
+            return sortedData;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }

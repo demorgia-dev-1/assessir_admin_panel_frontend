@@ -11,7 +11,7 @@ import { IoMdAdd } from 'react-icons/io';
 import { VscClearAll } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchJobRolesBySector } from '../features/jobRoleSlice';
-import { createQuestionSet, deleteQuestionSet, fetchQuestionSetsBySectorJobRole, lockQuestionSet, setSelectedJobRole, setSelectedSector, updateQuestionSet } from '../features/questionSetSlice';
+import { createQuestionSet, deleteQuestionSet, fetchQuestionSetsBySectorJobRole, lockQuestionSet, setSelectedJobRole, setSelectedSector, unlockQuestionSet, updateQuestionSet } from '../features/questionSetSlice';
 import { fetchSectors } from '../features/subAdminSlice';
 
 const ManageQuestionSet = () => {
@@ -143,6 +143,12 @@ const ManageQuestionSet = () => {
         setIsConfirmVisible(true);
     };
 
+    const handleUnlockClick = (rowData) => {
+        setSelectedQuestionSet(rowData);
+        setConfirmAction('unlock');
+        setIsConfirmVisible(true);
+    };
+
     const confirmActionHandler = async () => {
         if (!selectedQuestionSet || !selectedQuestionSet._id) {
             toast.error('Invalid question set selected');
@@ -157,6 +163,8 @@ const ManageQuestionSet = () => {
         }
         else if (confirmAction === 'lock') {
             await dispatch(lockQuestionSet(questionSetId));
+        } else if (confirmAction === 'unlock') {
+            await dispatch(unlockQuestionSet(questionSetId));
         }
 
         dispatch(fetchQuestionSetsBySectorJobRole(selectedSector._id));
@@ -165,6 +173,7 @@ const ManageQuestionSet = () => {
 
     };
 
+    const type = sessionStorage.getItem('type');
     const menuRefs = useRef([]);
     const actionBodyTemplate = (rowData, options) => {
         const items = [
@@ -177,7 +186,8 @@ const ManageQuestionSet = () => {
             {
                 label: 'Delete',
                 icon: 'pi pi-trash',
-                command: () => handleDeleteClick(rowData)
+                command: () => handleDeleteClick(rowData),
+                disabled: type === 'sub-admin' && rowData.isLocked
             },
             {
                 label: 'View',
@@ -194,6 +204,12 @@ const ManageQuestionSet = () => {
                 icon: 'pi pi-lock',
                 command: () => handleLockClick(rowData),
                 disabled: rowData.isLocked
+            },
+            {
+                label: rowData.isLocked ? 'Unlock Question Set' : 'Unlocked',
+                icon: 'pi pi-unlock',
+                command: () => handleUnlockClick(rowData),
+                disabled: type === 'sub-admin'
             }
         ];
 

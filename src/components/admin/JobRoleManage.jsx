@@ -11,7 +11,7 @@ import { FaEdit } from 'react-icons/fa';
 import { IoMdAdd, IoMdClose } from 'react-icons/io';
 import { VscClearAll } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
-import { createJobRole, deleteJobRole, fetchJobRolesBySector, lockJobRole, setSelectedSector, updateJobRole } from '../features/jobRoleSlice';
+import { createJobRole, deleteJobRole, fetchJobRolesBySector, lockJobRole, setSelectedSector, unlockJobRole, updateJobRole } from '../features/jobRoleSlice';
 import { fetchSectors } from '../features/subAdminSlice';
 
 
@@ -170,6 +170,13 @@ const JobRoleManage = () => {
         setConfirmAction('lock');
         setIsConfirmVisible(true);
     };
+
+    const handleUnlockClick = (rowData) => {
+        setSelectedJobRole(rowData);
+        setConfirmAction('unlock');
+        setIsConfirmVisible(true);
+    };
+
     const handleCopyId = (rowData) => {
         if (rowData && rowData._id) {
             navigator.clipboard.writeText(rowData._id);
@@ -190,7 +197,9 @@ const JobRoleManage = () => {
             if (confirmAction === 'lock') {
                 resultAction = await dispatch(lockJobRole(jobRoleId));
 
-            } else if (confirmAction === 'delete') {
+            } else if (confirmAction === 'unlock') {
+                resultAction = await dispatch(unlockJobRole(jobRoleId));
+            }else if (confirmAction === 'delete') {
                 resultAction = await dispatch(deleteJobRole(jobRoleId));
 
             }
@@ -202,6 +211,8 @@ const JobRoleManage = () => {
             setSelectedJobRole(null);
         }
     };
+
+    const type = sessionStorage.getItem("type");
     const menuRefs = useRef([]);
     const actionBodyTemplate = (rowData, options) => {
         const items = [
@@ -209,13 +220,13 @@ const JobRoleManage = () => {
                 label: 'Edit',
                 icon: 'pi pi-pencil',
                 command: () => handleEditClick(rowData),
-                disabled: rowData.isLocked
+                disabled: type === 'sub-admin' && rowData.isLocked
             },
             {
                 label: 'Delete',
                 icon: 'pi pi-trash',
                 command: () => handleDeleteClick(rowData),
-                disabled: rowData.isLocked
+                disabled: rowData.isLocked && type === 'sub-admin'
             },
             {
                 label: 'View',
@@ -227,6 +238,12 @@ const JobRoleManage = () => {
                 icon: 'pi pi-lock',
                 command: () => handleLockClick(rowData),
                 disabled: rowData.isLocked
+            },
+            {
+                label: rowData.isLocked ? 'Unlock Job Role' : 'Unlocked',
+                icon: 'pi pi-unlock',
+                command: () => handleUnlockClick(rowData),
+                disabled:type === 'sub-admin'
             },
             {
                 label: 'Copy Job Role ID',

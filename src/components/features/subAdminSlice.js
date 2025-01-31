@@ -33,7 +33,8 @@ export const fetchSectors = createAsyncThunk(
                 },
             });
             console.log(response);
-            return response.data.data;
+            const sortedData = response.data.data.sort((a, b) => a.name.localeCompare(b.name));
+            return sortedData;
         } catch (error) {
             return rejectWithValue(error.response ? error.response.data : error.message);
         }

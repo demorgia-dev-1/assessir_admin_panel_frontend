@@ -141,7 +141,7 @@ const AllBatches = () => {
                 </span>
 
             </div>
-            <div className="max-w-[23rem] p-1 md:max-w-[50rem] sm:max-w-[30rem] lg:max-w-[85rem] xl:max-w-[100%]">
+            <div className="max-w-[23rem] p-1 md:max-w-[50rem] sm:max-w-[30rem] lg:max-w-[75rem] xl:max-w-[87rem]">
                 <DataTable
                     value={filteredBatches}
                     paginator rows={10}
@@ -151,7 +151,7 @@ const AllBatches = () => {
                     globalFilter={globalFilter}
                     className="min-w-full overflow-x-auto bg-white border rounded-lg text-black"
                 >
-                    <Column field="no" header="Batch No" className="py-2 text-center px-4 border-b" />
+                    <Column field="no" header="Batch No" className="py-2 px-4 border-b" />
                     <Column field="name" header="Batch Name" className="py-2 px-4 border-b" />
                     <Column body={batchStatusTemplate} header="Batch Status" className="py-2 px-4 text-center border-b" />
                     <Column field="assessor.name" header="Assessor" className="py-2 px-4 text-center border-b" />
