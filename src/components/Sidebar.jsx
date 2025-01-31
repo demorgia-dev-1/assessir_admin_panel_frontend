@@ -283,8 +283,8 @@ const Sidebar = ({ userType }) => {
                     </div>
                 </Link>
                 )}
-                <p className='text-center text-sm text-gray-400'>© Demorgia Consulting Services Pvt. Ltd.</p>
-            </div>
+  <p className='text-center text-sm text-gray-400'>Powered by AssessiR 2024</p>
+              </div>
 
         </div>
     );
