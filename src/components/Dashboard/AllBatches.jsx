@@ -121,7 +121,7 @@ const AllBatches = () => {
     };
     return (
         <div className="mt-4 w-full">
-            <div className='flex justify-between'>
+            <div className='flex flex-col md:flex-row justify-between'>
                 <h1 className="text-2xl font-bold p-2">All Batches</h1>
                 <span className="p-input-icon-left w-full sm:w-auto">
                     <label htmlFor="filterbatches" className='font-semibold mr-2'>Filter Batches By Status</label>

@@ -512,8 +512,8 @@ const CandidatesForBatch = () => {
 
 
     return (
-        <div className="max-w-[20rem]  xs:max-w-[23rem] sm:max-w-[60rem] my-2  md:max-w-[86rem]  lg:max-w-[100%] xl:w-[100%]
-        mx-auto mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
+        <div className="w-auto max-w-[20rem]  xs:max-w-[23rem] sm:max-w-[60rem] my-2  md:max-w-[86rem]  lg:max-w-[100%] xl:w-[100%]
+        mx-auto mt-14 sm:mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
             <h2 className="text-xl font-bold mb-4 ml-1  p-2 text-center sm:text-left">Batch Status</h2>
             <div className="flex flex-col space-y-4 my-5">
                 <div className="grid p-2 grid-cols-1 md:grid-cols-3 gap-4 bg-gray-100 rounded-lg py-2 pb-6">
@@ -566,36 +566,36 @@ const CandidatesForBatch = () => {
                 </div>
 
                 <div className="min-w-full inline-block align-middle overflow-x-auto flex-grow-0 mt-4">
-                    <div className="flex justify-between items-center mb-4">
-                        <div>
+                    <div className="block sm:flex sm:justify-between items-center mb-4">
+                        <div className='flex sm:flex-row flex-col w-[60%]'>
 
                             <Button
                                 label="Reset Candidates"
                                 icon="pi pi-refresh"
-                                className="bg-red-600 hover:bg-red-700 text-white font-semibold py-1 sm:py-2 sm:px-3 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-xs"
+                                className="bg-red-600 hover:bg-red-700 text-white font-semibold py-1 px-2 sm:py-2 sm:px-3 rounded-md text-xs sm:text-sm w-auto sm:w-auto ml-2 lg:text-xs mb-2"
                                 onClick={confirmReset}
                             />
                             <Button
                                 label="Download Excel"
                                 icon='pi pi-file-excel'
-                                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-xs"
+                                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-1 px-2 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-auto sm:w-auto ml-2 lg:text-xs mb-2"
                                 onClick={handleDownloadSelectedExcel}
                             />
                             <Button
                                 label="Download Pdf"
                                 icon="pi pi-file-pdf"
-                                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-xs"
+                                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 px-2 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-auto sm:w-auto ml-2 lg:text-xs mb-2"
                                 onClick={handleDownloadSelectedPDF}
                             />
 
                         </div>
-                        <span className="p-input-icon-left w-full sm:w-auto">
+                        <span className="p-input-icon-left w-auto sm:w-auto px-2">
                             <i className="pi pi-search px-2" />
                             <InputText
                                 value={globalFilter}
                                 onChange={(e) => setGlobalFilter(e.target.value)}
                                 placeholder="Search..."
-                                className="px-10 w-full sm:w-72 rounded-md"
+                                className="px-10 w-[100%] sm:w-72 rounded-md"
                             />
                         </span>
                     </div>

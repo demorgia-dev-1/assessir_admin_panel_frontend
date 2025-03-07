@@ -286,7 +286,7 @@ const ManageTc = () => {
     };
     return (
         <div className="max-w-[20rem]  xs:max-w-[23rem] sm:max-w-[60rem] my-2  md:max-w-[86rem]  lg:max-w-[100%] xl:w-[100%]
-        mx-auto mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
+        mx-auto mt-14 sm:mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
             <h2 className="text-xl font-bold mb-4 ml-1  p-2 text-center sm:text-left">Manage Training Center</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4 my-5">
@@ -520,7 +520,7 @@ const ManageTc = () => {
                     </form>
                 </Dialog>
 
-                <div className="flex space-x-4">
+                <div className="flex space-x-4 px-4">
                     <button type="submit" className="w-32 py-2 text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-md text-sm px-5 text-center me-2 mb-2 transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 flex items-center justify-center">  <span className='pr-2'><IoMdAdd className='w-5 h-5' /></span>    <span>Add</span></button>
                     <button type="button" onClick={handleClear} className="w-32 py-2 text-white bg-gray-600 hover:bg-gray-700 focus:ring-blue-300 shadow-lg shadow-gray-500/50 dark:shadow-lg dark:shadow-gray-800/80 font-medium rounded-md text-sm px-5 text-center me-2 mb-2 transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 flex items-center justify-center">
                         <span className='pr-2'><VscClearAll className='w-5 h-5' /></span>
@@ -530,7 +530,7 @@ const ManageTc = () => {
             </form>
 
             <div className="min-w-full inline-block align-middle overflow-x-auto flex-grow-0 mt-4">
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex justify-between items-center mb-4 px-2">
                     <h3 className="text-xl font-bold">TC List</h3>
 
                     <span className="p-input-icon-left w-full sm:w-auto">

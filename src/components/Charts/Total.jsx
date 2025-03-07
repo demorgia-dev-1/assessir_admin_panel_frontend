@@ -65,9 +65,9 @@ const Total = () => {
 
     const role = sessionStorage.getItem('role');
     return (
-        <div className="p-2 w-full">
+        <div className="p-2 max-w-full mt-14">
            
-            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
                 {role === 'superadmin' ? (
                     <DashboardCard
                         icon={FaBuilding}

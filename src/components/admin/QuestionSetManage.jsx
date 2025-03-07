@@ -228,7 +228,7 @@ const ManageQuestionSet = () => {
     };
     return (
         <div className="max-w-[20rem]  xs:max-w-[23rem] sm:max-w-[60rem] my-2  md:max-w-[86rem]  lg:max-w-[100%] xl:w-[100%]
-        mx-auto mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
+        mx-auto mt-14 sm:mt-5 p-0 sm:p-2 px-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
             <div className='flex gap-20 items-center'>
                 <h2 className="text-xl font-bold mb-4 ml-1">Manage Question Set</h2>
 

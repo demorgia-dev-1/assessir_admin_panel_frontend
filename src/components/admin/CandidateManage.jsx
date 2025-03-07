@@ -78,6 +78,8 @@ const ManageCandidate = () => {
     const showButtons = selectedBatch && !formVisible;
 
     const handleDownloadCandidates = (selectedOnly) => {
+        const sanitizeFilename = (name) => name.replace(/[^a-zA-Z0-9]/g, "_","/","*","=","#","@","$","%","&","(",")","?");
+        const sanitizedBatchName = sanitizeFilename(`Batch-${selectedBatch.no}`);
         const dataToDownload = selectedOnly
             ? candidates.filter(candidate => selectedCandidates.includes(candidate))
             : candidates;
@@ -111,11 +113,12 @@ const ManageCandidate = () => {
         worksheet['!cols'] = columnWidths;
 
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, `Batch-${selectedBatch.no}`);
+        XLSX.utils.book_append_sheet(workbook, worksheet, sanitizedBatchName);
 
         const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        saveAs(blob, `Batch-${selectedBatch.no}.xlsx`);
+        // saveAs(blob, `Batch-${selectedBatch.no}.xlsx`);
+        saveAs(blob, `${sanitizedBatchName}.xlsx`);
     };
 
     const handleSectorChange = (selectedOption) => {
@@ -540,7 +543,7 @@ const ManageCandidate = () => {
 
     return (
         <div className="max-w-[20rem]  xs:max-w-[23rem] sm:max-w-[60rem] my-2  md:max-w-[86rem]  lg:max-w-[100%] xl:w-[100%]
-        mx-auto mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
+        mx-auto mt-14 sm:mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
             <style>
                 {`
                     .p-datatable .p-checkbox-box {
@@ -999,13 +1002,13 @@ const ManageCandidate = () => {
 
 
             <div className="min-w-full inline-block align-middle overflow-x-auto mt-10">
-                <div className="flex justify-between items-center mb-4">
-                    <div className='flex gap-4'>
+                <div className="flex flex-col sm:flex-row gap-4 justify-between sm:items-center mb-4 px-2">
+                    <div className='flex flex-col sm:flex-row gap-4'>
                         <h3 className="text-xl font-bold">Candidates List</h3>
                         <Button
                             label="Download Excel"
                             icon='pi pi-file-excel'
-                            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-sm"
+                            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-2 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-40 sm:w-auto sm:ml-2 lg:text-sm"
                             onClick={handleDownloadCandidates}
                         />
                     </div>
@@ -1017,7 +1020,7 @@ const ManageCandidate = () => {
                                 value={globalFilter}
                                 onChange={(e) => setGlobalFilter(e.target.value)}
                                 placeholder="Search..."
-                                className=" px-10 w-full sm:w-72 rounded-md"
+                                className=" px-10 w-60 sm:w-72 rounded-md"
                             />
                         </span>
                     </div>

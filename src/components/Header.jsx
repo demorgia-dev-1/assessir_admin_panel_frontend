@@ -45,7 +45,8 @@ export default function Header({ toggleSidebar, admin }) {
 
     const role = sessionStorage.getItem('role');
     return (
-        <div className="max-w-[100%] relative bg-white items-center duration-200 ease-in-out h-20 px-4 flex justify-between m-4 mb-0 rounded-lg shadow-md hover:shadow-lg hover:shadow-gray-300 transition-shadow max-w-auto">
+        // <div className="max-w-[100%] relative bg-white items-center duration-200 ease-in-out h-20 px-4 flex justify-between m-4 mb-0 rounded-lg shadow-md hover:shadow-lg hover:shadow-gray-300 transition-shadow max-w-auto">
+        <div className=" w-auto fixed top-0 left-0 right-0 md:max-w-[100%] md:relative bg-white items-center duration-200 ease-in-out h-20 px-4 flex justify-between m-0 md:m-4 mb-0 rounded-lg shadow-md hover:shadow-lg hover:shadow-gray-300 transition-shadow  z-50">
             <div className="relative flex items-center">
                 <button onClick={toggleSidebar} className="p-2 focus:outline-none">
                     <HiMenu fontSize={24} />
@@ -53,10 +54,10 @@ export default function Header({ toggleSidebar, admin }) {
                 <img
                     src={logo}
                     alt="company logo"
-                    className="h-14 m-2 bg-transparent object-cover"
+                    className="h-14 m-2 bg-transparent object-cover hidden sm:block"
                 />
 
-                <img src={skill} alt="skill" className="h-14" />
+                <img src={skill} alt="skill" className="h-14 hidden sm:block" />
             </div>
 
             <div className="flex items-center gap-2 mr-2">
@@ -66,7 +67,7 @@ export default function Header({ toggleSidebar, admin }) {
                         className={`inline-block mr-2 h-2.5 w-2.5 rounded-full shadow ${isOnline ? 'bg-green-500' : 'bg-red-500'
                             }`}
                     ></span>
-                    <span className='font-bold mr-2'>
+                    <span className='font-bold mr-2 hidden sm:inline-block'>
                         Welcome
                     </span>
                     <span className='text-green-700 font-semibold'>

@@ -779,7 +779,7 @@ const ManageQuestion = () => {
 
     return (
         <div className="max-w-[20rem]  xs:max-w-[23rem] sm:max-w-[60rem] my-2  md:max-w-[86rem]  lg:max-w-[100%] xl:w-[100%]
-        mx-auto mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
+        mx-auto mt-14 sm:mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
             <h2 className="text-xl font-bold mb-4 ml-1  p-2 text-center sm:text-left">Manage Question </h2>
             <div className="flex flex-col space-y-4 my-2">
                 {!formVisible && (
@@ -1314,15 +1314,16 @@ const ManageQuestion = () => {
             </Dialog>
 
             <div className="min-w-full inline-block align-middle overflow-x-auto">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4 px-2">
                     <h3 className="text-xl font-bold">Questions List</h3>
                     <span className="p-input-icon-left w-full sm:w-auto">
                         <Button
                             label="Download Questions"
                             icon='pi pi-file-excel'
-                            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto mr-6 lg:text-xs mb-0.5"
+                            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-auto px-2 sm:w-auto mr-6 lg:text-xs mb-2"
                             onClick={downloadQuestions}
                         />
+                        <span className="p-input-icon-left w-full sm:w-auto">
                         <i className="pi pi-search px-2" />
                         <InputText
                             value={globalFilter}
@@ -1330,6 +1331,8 @@ const ManageQuestion = () => {
                             placeholder="Search..."
                             className=" px-10 p-2 sm:w-75 rounded-md"
                         />
+                        </span>
+                        
                     </span>
                 </div>
                 <div className="max-w-[23rem] p-1 md:max-w-[50rem] sm:max-w-[30rem] lg:max-w-[76rem] xl:max-w-[86rem]">

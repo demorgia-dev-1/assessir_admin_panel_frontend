@@ -119,34 +119,84 @@ const Profile = () => {
         }
     };
 
+    // const handleCompanyImageChange = (e) => {
+    //     const file = e.target.files[0];
+    //     if (file) {
+    //         setCompanyAvatar(file);
+    //         setCompanyPreviewImage(URL.createObjectURL(file));
+    //     }
+    // };
     const handleCompanyImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             setCompanyAvatar(file);
             setCompanyPreviewImage(URL.createObjectURL(file));
+            setEditType("company");  // ✅ Ensure edit type is set
+            setCropping(true);  // ✅ Enable cropping modal
         }
     };
+    
 
     const handleCompanyCameraClick = () => {
         fileInputRef2.current.click();
     };
 
-
     const handleCameraClick = () => {
         fileInputRef.current.click();
     };
 
+    // const handleCrop = () => {
+    //     const cropper = cropperRef.current.cropper;
+    //     const croppedCanvas = cropper.getCroppedCanvas();
+    //     croppedCanvas.toBlob((blob) => {
+    //         const croppedImageUrl = URL.createObjectURL(blob);
+    //         setPreviewImage(croppedImageUrl);
+    //         setCompanyPreviewImage(croppedImageUrl)
+    //         setAvatar(blob);
+    //         setCropping(false);
+    //     }, 'image/jpeg');
+    // };
+
     const handleCrop = () => {
+        if (!cropperRef.current || !cropperRef.current.cropper) {
+            console.error("Cropper is not initialized");
+            return;
+        }
+    
         const cropper = cropperRef.current.cropper;
         const croppedCanvas = cropper.getCroppedCanvas();
+    
+        if (!croppedCanvas) {
+            console.error("Failed to get cropped canvas");
+            return;
+        }
+    
         croppedCanvas.toBlob((blob) => {
+            if (!blob) {
+                console.error("Failed to create blob from cropped canvas");
+                return;
+            }
+    
             const croppedImageUrl = URL.createObjectURL(blob);
-            setPreviewImage(croppedImageUrl);
-            setAvatar(blob);
+    
+            if (editType === "company") {
+                setCompanyPreviewImage(croppedImageUrl);  // ✅ Update company logo preview
+                setCompanyAvatar(blob);  // ✅ Store blob for company upload
+            } else {
+                setPreviewImage(croppedImageUrl);  // ✅ Update profile picture preview
+                setAvatar(blob);  // ✅ Store blob for profile upload
+            }
+    
             setCropping(false);
-        }, 'image/jpeg');
-    };
+        }, "image/jpeg");
+        console.log("Cropping for:", editType);
+console.log("Company Preview Image Before Crop:", companyPreviewImage);
+console.log("Profile Preview Image Before Crop:", previewImage);
 
+    };
+    
+    
+    
 
     const handleUpdateProfilePicture = async () => {
         const token = sessionStorage.getItem("token");
@@ -235,7 +285,7 @@ const Profile = () => {
                         className="hidden"
                     />
 
-                    {cropping && (
+                    {/* {cropping && (
                         <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
                             <div className="bg-white p-4 rounded-lg shadow-lg">
                                 <Cropper
@@ -272,7 +322,49 @@ const Profile = () => {
                                 </div>
                             </div>
                         </div>
-                    )}
+                    )} */}
+
+                    {cropping && (
+    <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
+        <div className="bg-white p-4 rounded-lg shadow-lg">
+            <Cropper
+                src={editType === "company" ? companyPreviewImage : previewImage} // ✅ Correct image
+                style={{ height: 400, width: "100%" }}
+                initialAspectRatio={1}
+                aspectRatio={1}
+                guides={false}
+                cropBoxResizable={true}
+                cropBoxMovable={true}
+                dragMode="move"
+                scalable={true}
+                zoomable={true}
+                viewMode={1}
+                background={false}
+                responsive={true}
+                autoCropArea={1}
+                checkOrientation={false}
+                ref={cropperRef} // ✅ Ensure cropperRef is correctly assigned
+            />
+            <div className="flex justify-end space-x-2 mt-4">
+                <button
+                    onClick={() => setCropping(false)}
+                    className="bg-gray-400 text-white px-5 py-1 rounded-sm"
+                >
+                    Cancel
+                </button>
+                <button
+                    onClick={handleCrop}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-1 rounded-sm"
+                >
+                    Crop
+                </button>
+            </div>
+        </div>
+    </div>
+)}
+
+
+
 
                     {avatar && !cropping && (
                         <button
@@ -320,7 +412,7 @@ const Profile = () => {
                             className="hidden"
                         />
 
-                        {companyAvatar && (
+                        {companyAvatar && !cropping &&(
                             <button
                                 onClick={handleUpdateCompanyPicture}
                                 className="mt-2 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-sm shadow"

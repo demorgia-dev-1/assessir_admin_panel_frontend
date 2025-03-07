@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import * as XLSX from 'xlsx';
 import { BASE_URL } from '../constant';
-import { createBatch, deleteBatch, fetchBatchesBySectorJobRole, updateBatch, extendEndDate, setSelectedJobRole, setSelectedSector, deleteCandidateFromBatch, clearBatchResponses } from '../features/batchSlice';
+import { clearBatchResponses, createBatch, deleteBatch, deleteCandidateFromBatch, extendEndDate, fetchBatchesBySectorJobRole, setSelectedJobRole, setSelectedSector, updateBatch } from '../features/batchSlice';
 import { fetchAllCountries } from '../features/countrySlice';
 import { fetchJobRolesBySector } from '../features/jobRoleSlice';
 import { fetchSectors } from '../features/subAdminSlice';
@@ -756,7 +756,7 @@ const ManageBatch = () => {
 
     return (
         <div className="max-w-[20rem]  xs:max-w-[23rem] sm:max-w-[60rem] my-2  md:max-w-[86rem]  lg:max-w-[100%] xl:w-[100%]
-        mx-auto mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
+        mx-auto mt-14 sm:mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
             <h2 className="text-xl font-bold mb-4 ml-1  p-2 text-center sm:text-left"> Manage Batch </h2>
             <div className="flex flex-col  space-y-2">
                 <div className="grid grid-cols-1 p-2  md:grid-cols-3 gap-4 bg-gray-100 rounded-lg py-2">
@@ -1271,7 +1271,7 @@ const ManageBatch = () => {
 
 
             <div className="min-w-full inline-block align-middle overflow-x-auto mt-10">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+                <div className="flex flex-col  sm:flex-col justify-between items-start  mb-4 gap-4 px-2">
                     <h3 className="text-xl font-bold">Batches List</h3>
                     <div className="">
                         <label htmlFor="statusFilter" className="mr-2 font-semibold">Filter by Status:</label>
@@ -1283,7 +1283,7 @@ const ManageBatch = () => {
                             <option value="not-assigned">Not Assigned</option>
                         </select>
                     </div>
-                    <span className="p-input-icon-left w-full sm:w-auto">
+                    <span className="p-input-icon-left w-auto sm:w-auto">
                         <i className="pi pi-search px-2" />
                         <InputText
                             value={globalFilter}
@@ -1293,7 +1293,7 @@ const ManageBatch = () => {
                         />
                     </span>
                 </div>
-                <div className="max-w-[23rem] p-1 md:max-w-[50rem] sm:max-w-[30rem] lg:max-w-[76rem] xl:max-w-[86rem]">
+                <div className="max-w-[23rem] p-1 md:max-w-[29rem] sm:max-w-[42rem] lg:max-w-[44rem] xl:max-w-[85rem]">
 
                     <DataTable
                         value={filteredBatches}
