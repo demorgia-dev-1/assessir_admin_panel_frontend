@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/demorgia-logo.png";
 import skill from "../assets/skillind.png";
 import useOnline from "../components/features/useOnline";
 
@@ -48,7 +47,7 @@ export default function Header({ toggleSidebar, admin }) {
           <HiMenu fontSize={24} />
         </button>
         <img
-          src={admin?.company?.companyLogoUrl || logo}
+          src={admin?.company?.companyLogoUrl}
           alt="company logo"
           className="h-14 m-2 bg-transparent object-cover"
         />
