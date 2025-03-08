@@ -1,16 +1,15 @@
-import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { MultiSelect } from 'primereact/multiselect';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
+import { BASE_URL } from '../constant';
+import { setSelectedBatch, setSelectedJobRole, setSelectedSector } from '../features/assignTestSlice';
+import { fetchBatchesBySectorJobRole } from '../features/batchSlice';
 import { fetchJobRolesBySector } from '../features/jobRoleSlice';
 import { fetchSectors } from '../features/subAdminSlice';
-import { fetchBatchesBySectorJobRole } from '../features/batchSlice';
-import { setSelectedBatch, setSelectedJobRole, setSelectedSector } from '../features/assignTestSlice';
-import Select from 'react-select';
-import { MultiSelect } from 'primereact/multiselect';
-import axios from 'axios';
-import { BASE_URL } from '../constant';
-import toast from 'react-hot-toast';
-import BatchAnalytics from './BatchAnalytics';
 
 function ManageBatchAnalytics() {
     const dispatch = useDispatch();
@@ -111,7 +110,7 @@ function ManageBatchAnalytics() {
     return (
 
         <div>
-            <h1 className="text-xl font-bold text-gray-800 m-4">Batch Analytics</h1>
+            <h1 className="text-xl font-bold text-gray-800 m-4 mt-14 sm:mt-5">Batch Analytics</h1>
    
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg shadow-md relative overflow-visible">
              

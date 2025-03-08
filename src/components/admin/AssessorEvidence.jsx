@@ -204,7 +204,7 @@ const AssessorEvidence = () => {
         );
     }
     return (
-        <div className="w-full mx-auto mt-5 p-0 sm:p-2 py-4 bg-white border-2 border-white/10 items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0">
+        <div className="w-full mx-auto mt-14 sm:mt-5 p-0 sm:p-2 py-4 bg-white border-2 border-white/10 items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0">
             <div className="flex flex-col space-y-4 my-3">
                 <span className="text-xl font-bold mb-2 ml-1 p-2 text-center sm:text-left">Assessor Evidence</span>
                 <div className="grid p-2 grid-cols-1 md:grid-cols-3 gap-4 bg-gray-100 rounded-lg py-2 pb-6">
@@ -284,7 +284,7 @@ const AssessorEvidence = () => {
 
                         </div>
                     ) : (
-                        <p>No batch selected.</p>
+                        <p className='px-2'>No batch selected.</p>
                     )}
                 </div>
                 <div className="mt-5 space-x-4 hidden">

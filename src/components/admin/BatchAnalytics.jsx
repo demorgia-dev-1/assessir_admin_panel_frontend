@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import BarChart from "../Charts/BarCharts";
-import { Link, useLocation, useParams } from "react-router-dom";
-import { BASE_URL } from "../constant";
 import toast from "react-hot-toast";
 import { MdContentCopy } from "react-icons/md";
+import { useLocation, useParams } from "react-router-dom";
+import BarChart from "../Charts/BarCharts";
+import { BASE_URL } from "../constant";
 
 function BatchAnalytics() {
   const [matrics, setMatrics] = React.useState();

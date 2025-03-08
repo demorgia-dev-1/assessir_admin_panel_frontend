@@ -367,7 +367,7 @@ const ManageAssignTest = () => {
 
 
     return (
-        <div className="max-w-full mx-auto mt-8 p-6 py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg">
+        <div className="max-w-full mx-auto mt-14 sm:mt-8 p-6 py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold ml-1 mb-3">Assign Batch</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -496,7 +496,7 @@ const ManageAssignTest = () => {
 
                     <div className="flex flex-col flex-1">
                         <label htmlFor="tcs" className="mb-1 font-semibold text-base sm:text-sm md:text-md lg:text-md ml-1">Select Training Center</label>
-                        <div className="flex items-center">
+                        <div className="flex flex-col gap-4 sm:flex-row item-start sm:items-center">
                             <Dropdown
                                 id="tcs"
                                 value={selectedTc ? selectedTc._id : null}
@@ -511,7 +511,7 @@ const ManageAssignTest = () => {
                             <button
                                 type='button'
                                 onClick={handleCreateTC}
-                                className="ml-2 flex px-2 py-2 text-sm text-white bg-purple-600 rounded-md hover:bg-blue-600 transition"
+                                className="ml-2 w-24 flex px-2 py-2 text-sm text-white bg-purple-600 rounded-md hover:bg-blue-600 transition"
                             >
                                 <span className='pr-1'><IoMdAdd className='w-5 h-5' /></span>  Create
                             </button>

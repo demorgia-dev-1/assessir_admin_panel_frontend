@@ -67,7 +67,7 @@ export default function Layout() {
     return (
         <div className="h-screen w-screen overflow-hidden flex flex-row">
 
-            {'admin' && (
+            {'admin' && ( 
                 <div ref={sidebarRef} className={`${isSidebarVisible ? 'block' : 'hidden'} md:block`}>
                     {isSidebarVisible && <Sidebar  />}
                 </div>

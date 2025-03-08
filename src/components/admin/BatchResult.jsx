@@ -484,7 +484,7 @@ const BatchResult = () => {
 
     return (
         <div className="max-w-[20rem]  xs:max-w-[23rem] sm:max-w-[60rem] my-2  md:max-w-[86rem]  lg:max-w-[100%] xl:w-[100%]
-        mx-auto mt-5 sm:p-2 py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
+        mx-auto mt-14 sm:mt-5 sm:p-2 py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
             <h2 className="text-xl font-bold mb-4 ml-1  p-2 text-center sm:text-left">Batch Result </h2>
             <div className="flex flex-col space-y-4 my-5 z-0">
                 <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 bg-gray-100 rounded-lg px-2 py-2 pb-6">
@@ -537,31 +537,31 @@ const BatchResult = () => {
                 </div>
 
                 <div className="min-w-full inline-block align-middle overflow-x-auto flex-grow-0 p-2 mt-4">
-                    <div className="flex justify-between items-center mb-4">
-                        <div>
+                    <div className="block sm:flex sm:justify-between items-center mb-4">
+                        <div className='flex sm:flex-row flex-col w-[60%]'>
                             <Button
                                 label="Download Result"
                                 icon='pi pi-file-excel'
-                                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-xs"
+                                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-xs mb-2"
                                 onClick={handleDownloadExcel}
-                            />
+                            /> 
                             <Button
                                 label="Theory Response"
                                 icon="pi pi-file-excel"
-                                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-xs"
+                                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-xs mb-2"
                                 onClick={handleDownloadTheoryExcel}
                             />
 
                             <Button
                                 label="Practical Response"
                                 icon="pi pi-file-excel"
-                                className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-xs"
+                                className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-xs mb-2"
                                 onClick={handleDownloadPracticalExcel}
                             />
                             <Button
                                 label="Viva Response"
                                 icon="pi pi-file-excel"
-                                className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-xs"
+                                className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-1 sm:py-2 sm:px-4 rounded-md text-xs sm:text-sm w-full sm:w-auto ml-2 lg:text-xs mb-2"
                                 onClick={handleDownloadVivaExcel}
                             />
 

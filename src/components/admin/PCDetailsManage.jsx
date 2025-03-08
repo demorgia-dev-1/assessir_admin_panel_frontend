@@ -386,11 +386,11 @@ const ManagePCDetails = () => {
     };
 
     return (
-        <div className="max-w-[20rem]  xs:max-w-[23rem] sm:max-w-[60rem] my-2  md:max-w-[86rem]  lg:max-w-[100%] xl:w-[100%]
-        mx-auto mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
+        <div className=" max-w-[20rem]  xs:max-w-[23rem] sm:max-w-[60rem] my-2  md:max-w-[86rem]  lg:max-w-[100%] xl:w-[100%]
+        mx-auto mt-14 sm:mt-5 p-0 sm:p-2  py-8 bg-white border-2 border-white/10 backdrop-blur-[20px] items-center overflow-hidden duration-200 ease-in-out text-black rounded-lg shadow-lg flex-grow-0 ">
             <h2 className="text-xl font-bold mb-4 ml-1  p-2 text-center sm:text-left">Manage PC</h2>
             <div className="flex flex-col  space-y-4  pl- my-5">
-                <div className="grid  grid-cols-1 md:grid-cols-3 gap-4 bg-gray-100 rounded-lg py-2 pb-6">
+                <div className="grid  grid-cols-1 md:grid-cols-3 gap-4 bg-gray-100 rounded-lg py-2 pb-6 px-2">
                     <div className="flex flex-col">
                         <label htmlFor="sector" className="font-semibold  p-2 ">Select Sector</label>
                         <select
@@ -719,7 +719,7 @@ const ManagePCDetails = () => {
             </Dialog>
 
             <div className="mt-8 overflow-x-auto sm:w-full md:w-[100%] xl:w-full">
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex flex-col sm:flex-row justify-between items-center mb-4 px-2">
                     <h3 className="text-xl font-bold">PC List</h3>
 
                     <span className="p-input-icon-left w-full sm:w-auto">
