@@ -2,12 +2,12 @@
 import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { IoMdAdd } from "react-icons/io";
 import { VscClearAll } from "react-icons/vsc";
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 import { assignTestToAssessor, setSelectedAssessor, setSelectedBatch, setSelectedCity, setSelectedCountry, setSelectedJobRole, setSelectedPracticalQuestionSet, setSelectedSector, setSelectedState, setSelectedTcs, setSelectedTheoryQuestionSet, setSelectedVivaQuestionSet } from '../features/assignTestSlice';
 import { fetchAssessorsByJobRole, fetchBatchesBySectorJobRole } from '../features/batchSlice';
 import { fetchCitiesByStateId } from '../features/citySlice';
@@ -18,6 +18,7 @@ import { fetchStates } from '../features/stateSlice';
 import { fetchSectors } from '../features/subAdminSlice';
 import { fetchTcs } from '../features/tcSlice';
 import QuestionSetSelector from './QuestionSetSelector';
+
 
 const ManageAssignTest = () => {
     const [submitted, setSubmitted] = useState(false);
@@ -118,8 +119,6 @@ const ManageAssignTest = () => {
         getParamAndDispatch('city', setSelectedCity, cities);
     }, [location.search, sectors, jobRoles, batches, assessors, tcs, questionSets, countries, states, cities, dispatch]);
 
-
-
     useEffect(() => {
         const params = new URLSearchParams();
         if (selectedSector) params.set('sector', selectedSector._id);
@@ -141,22 +140,87 @@ const ManageAssignTest = () => {
         selectedVivaQuestionSet, selectedCountry, selectedState, selectedCity, navigate
     ]);
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!selectedSector) {
-            toast.error("Please select a sector before assigning the batch.");
+            // toast.error("Please select a sector before assigning the batch.");
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please select a sector before assigning the batch.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
 
         if (!selectedJobRole) {
-            toast.error("Please select a job role before assigning the batch.");
+            // toast.error("Please select a job role before assigning the batch.");
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please select a job role before assigning the batch.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
 
         if (!selectedBatch) {
-            toast.error("Please select a batch before assigning the batch.");
+            // toast.error("Please select a batch before assigning the batch.");
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please select a batch before assigning the batch.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         const notTranslated = [];
@@ -170,7 +234,29 @@ const ManageAssignTest = () => {
             notTranslated.push('Viva');
         }
         if (!selectedAssessor) {
-            toast.error("please select assessir first");
+            // toast.error("please select assessir first");
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please select assessir first</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
 
@@ -221,6 +307,7 @@ const ManageAssignTest = () => {
             isCandidateLocationRequired: isCandidateLocationRequired,
             isCandidateAdharRequired: isCandidateAdharRequired,
             randomizeQuestions: isRandomizeQuestionsRequired,
+            isSuspiciousActivityDetectionRequired: isAiRequired,
         };
 
         await dispatch(assignTestToAssessor({ batchId: selectedBatch._id, payload })).unwrap();
@@ -413,7 +500,6 @@ const ManageAssignTest = () => {
                         />
                     </div>
 
-
                     <div className="flex flex-col">
                         <label htmlFor="sector" className="mb-1 font-semibold text-base sm:text-sm md:text-md lg:text-md ml-1">Select Sector</label>
                         <Select
@@ -442,7 +528,6 @@ const ManageAssignTest = () => {
                             isClearable
                             placeholder="Select Job Role"
                             className="w-full text-sm border-2 border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition z-10"
-
 
                         />
                     </div>
@@ -492,7 +577,6 @@ const ManageAssignTest = () => {
 
                         />
                     </div>
-
 
                     <div className="flex flex-col flex-1">
                         <label htmlFor="tcs" className="mb-1 font-semibold text-base sm:text-sm md:text-md lg:text-md ml-1">Select Training Center</label>
@@ -568,11 +652,9 @@ const ManageAssignTest = () => {
                             <span className="absolute font-medium text-xs uppercase right-8 text-white">YES</span>
                         </label>
                     </div>
-
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
                     <div className="flex items-center space-x-4">
                         <label className="flex items-center relative w-max cursor-pointer select-none">
                             <span className="mb-1 font-semibold text-base sm:text-sm md:text-md lg:text-md ml-1 mr-6">AI Required</span>
@@ -713,9 +795,7 @@ const ManageAssignTest = () => {
                         </label>
                     </div>
 
-
                 </div>
-
 
                 <div className="flex space-x-4">
                     <button type="submit" className="w-32 py-2 text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br  shadow-lg shadow-purple-500/50  font-medium rounded-md text-sm px-5 text-center transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 flex justify-center items-center">
@@ -727,7 +807,6 @@ const ManageAssignTest = () => {
                         <span>Clear</span>
                     </button>
                 </div>
-
             </form>
 
             <Dialog

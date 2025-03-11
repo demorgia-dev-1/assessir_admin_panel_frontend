@@ -12,13 +12,13 @@ import { Menu } from 'primereact/menu';
 import { useEffect, useRef, useState } from 'react';
 import Cropper from 'react-cropper';
 import { useDropzone } from 'react-dropzone';
-import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { IoMdAdd, IoMdClose, IoMdCloudUpload } from 'react-icons/io';
 import { MdOutlineNoteAdd } from "react-icons/md";
 import { VscClearAll } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { BASE_URL } from '../constant';
 import { setSelectedBatch, setSelectedJobRole, setSelectedSector } from '../features/assignTestSlice';
@@ -194,7 +194,32 @@ const ManageCandidate = () => {
             dispatch(createCandidate(formData))
                 .unwrap()
                 .then(() => {
-                    toast.success('Candidate added successfully!');
+                    // toast.success('Candidate added successfully!');
+                    swal.fire({
+                         html: `
+                                            <div class="custom-error-container">
+                                            <div class="custom-swal-icon-wrapper">
+                                                <i class="fa fa-check-circle custom-success-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">Candidate added successfully!</div>
+                                              
+                                            </div>
+                                          `,
+                                    toast: false,
+                                    position: "center",
+                                    color: "#000",
+                                    timer:3000,
+                                    timerProgressBar:true,
+                                    backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                    customClass: {
+                                      popup: "custom-swal-popup",
+                                      actions: "swal-center-actions",
+                                      icon: "custom-swal-icon",
+                                    },
+                    })
                     handleClear();
                     dispatch(fetchCandidateByBatchId(selectedBatch._id));
                 })
@@ -324,7 +349,29 @@ const ManageCandidate = () => {
 
                     return candidate;
                 } else {
-                    toast.error(!name ? 'Name is required' : !enrollmentNo ? 'Enrollment Number is required' : !allowedGenders.includes(gender.toLowerCase()) ? 'Invalid gender' : 'Required fields are missing');
+                    // toast.error(!name ? 'Name is required' : !enrollmentNo ? 'Enrollment Number is required' : !allowedGenders.includes(gender.toLowerCase()) ? 'Invalid gender' : 'Required fields are missing');
+                    swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">${!name ? 'Name is required' : !enrollmentNo ? 'Enrollment Number is required' : !allowedGenders.includes(gender.toLowerCase()) ? 'Invalid gender' : 'Required fields are missing'}</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                 }
                 return null;
             }).filter(item => item !== null);
@@ -341,15 +388,89 @@ const ManageCandidate = () => {
 
                 if (response.status === 200) {
                     handleClear();
-                    toast.success('Candidates uploaded successfully!');
+                    // toast.success('Candidates uploaded successfully!');
+                    swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fa fa-check-circle custom-success-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">Candidates uploaded successfully!</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
+                    
                     dispatch(fetchCandidateByBatchId(selectedBatch._id));
                 } else {
                     console.error('Error response:', response);
-                    toast.error(`Error uploading candidates: ${response.data?.message || response?.data?.statusText}`);
+                    // toast.error(`Error uploading candidates: ${response.data?.message || response?.data?.statusText}`);
+                    Swal.fire({
+                        html: `<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">${`Error uploading candidates: ${response.data?.message || response?.data?.statusText}`}</div>
+                                  </div>`,
+                        showCancelButton: true,
+                        position: "center",
+                        confirmButtonText: "Ok",
+                        cancelButtonText: "No",
+                        confirmButtonColor: "#28a745",
+                        cancelButtonColor: "#dc3545",
+                        backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                        customClass: {
+                          popup: "custom-swal-popup",
+                          confirmButton: "custom-confirm-button",
+                          actions: "swal-center-actions",
+                          icon: "custom-swal-icon",
+                        }
+                      });
                 }
             } catch (error) {
                 console.error('Error uploading candidates:', error);
-                toast.error(`Error uploading candidates: ${error.response?.data?.message || error.message}`);
+                // toast.error(`Error uploading candidates: ${error.response?.data?.message || error.message}`);
+                Swal.fire({
+                    html: `<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">${
+                                `Error uploading candidates: ${error.response?.data?.message || error.message}`
+                              }</div>
+                              
+                              </div>`,
+                    showCancelButton: true,
+                    position: "center",
+                    confirmButtonText: "Ok",
+                    cancelButtonText: "No",
+                    confirmButtonColor: "#28a745",
+                    cancelButtonColor: "#dc3545",
+                    backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                    customClass: {
+                      popup: "custom-swal-popup",
+                      confirmButton: "custom-confirm-button",
+                      actions: "swal-center-actions",
+                      icon: "custom-swal-icon",
+                    }
+                  });
             }
         };
         reader.readAsArrayBuffer(selectedFile);
@@ -409,13 +530,80 @@ const ManageCandidate = () => {
                     const url = URL.createObjectURL(blob);
                     setCroppedImageUrl(url);
                     setShowCropper(false);
-                    toast.success('Image cropped successfully!');
+                    // toast.success('Image cropped successfully!');
+                    swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fa fa-check-circle custom-success-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">Image cropped successfully!</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                 } else {
-                    toast.error('Failed to get cropped canvas. Please try again.');
+                    // toast.error('Failed to get cropped canvas. Please try again.');
+                    swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fa fa-exclamation-circle custom-error-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">Failed to get cropped canvas. Please try again.</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
+                    
                 }
             }, 'image/png');
         } else {
-            toast.error('Cropper instance is not available. Please try again.');
+            // toast.error('Cropper instance is not available. Please try again.');
+            swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Cropper instance is not available. Please try again.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -446,7 +634,6 @@ const ManageCandidate = () => {
 
         console.log("Submitting Update for Question:", updatedCandidate);
 
-
         const resultAction = await dispatch(updateCandidate({ _id, updatedCandidate })).unwrap();
         if (updateCandidate.fulfilled.match(resultAction)) {
             setIsEditFormVisible(false);
@@ -472,7 +659,29 @@ const ManageCandidate = () => {
 
     const confirmActionHandler = async () => {
         if (!selectedCandidate || !selectedCandidate._id) {
-            toast.error('Invalid Candidate selected');
+            // toast.error('Invalid Candidate selected');
+            swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Invalid Candidate selected</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         const batchId = selectedCandidate._id;
@@ -495,7 +704,30 @@ const ManageCandidate = () => {
     const handleCopyId = (rowData) => {
         if (rowData && rowData._id) {
             navigator.clipboard.writeText(rowData._id);
-            toast.success('Candidate copied to clipboard!');
+            // toast.success('Candidate copied to clipboard!');
+            swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fa fa-check-circle custom-success-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Candidate copied to clipboard!</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                confirmButton: "custom-confirm-button",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 

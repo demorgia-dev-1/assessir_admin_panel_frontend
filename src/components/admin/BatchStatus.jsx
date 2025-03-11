@@ -12,11 +12,11 @@ import { InputText } from 'primereact/inputtext';
 import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { FiDownload } from "react-icons/fi";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { BASE_URL } from '../constant';
 import { setSelectedBatch, setSelectedJobRole, setSelectedSector } from '../features/assignTestSlice';
@@ -189,7 +189,29 @@ const CandidatesForBatch = () => {
     const handleResetTheory = async () => {
         const token = sessionStorage.getItem('token');
         if (!token) {
-            toast.error('Access token is missing');
+            // toast.error('Access token is missing');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                                              <div class="custom-swal-icon-wrapper">
+                                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">access token is missing.</div>
+                                              </div>`,
+                                              toast:false,
+                                              position:"center",
+                                              color:"#000",
+                                              timer: 3000,
+                                              timerProgressBar: true,
+                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                              customClass: {
+                                                popup: "custom-swal-popup",
+                                                actions: "swal-center-actions",
+                                                icon: "custom-swal-icon",
+                                              }
+            })
             return;
         }
 
@@ -199,7 +221,29 @@ const CandidatesForBatch = () => {
         console.log('Candidates to reset:', candidateIdsToReset);
 
         if (candidateIdsToReset.length === 0) {
-            toast.error('No candidates selected for reset.');
+            // toast.error('No candidates selected for reset.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                                              <div class="custom-swal-icon-wrapper">
+                                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">no candidates selected for reset.</div>
+                                              </div>`,
+                                              toast:false,
+                                              position:"center",
+                                              color:"#000",
+                                              timer: 3000,
+                                              timerProgressBar: true,
+                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                              customClass: {
+                                                popup: "custom-swal-popup",
+                                                actions: "swal-center-actions",
+                                                icon: "custom-swal-icon",
+                                              }
+            })
             return;
         }
 
@@ -214,7 +258,29 @@ const CandidatesForBatch = () => {
             });
 
             if (response.status === 200 || response.status === 204) {
-                toast.success('Theory reset successfully');
+                // toast.success('Theory reset successfully');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                                  <div class="custom-swal-icon-wrapper">
+                                                  <i class="fa fa-check-circle custom-success-icon"></i>
+                                                  </div>
+                                                  <hr class="custom-error-divider" />
+                                                  <div class="custom-error-message capitalize">theory reset successfully</div>
+                                                  </div>`,
+                                                  toast:false,
+                                                  position:"center",
+                                                  color:"#000",
+                                                  timer: 3000,
+                                                  timerProgressBar: true,
+                                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                                  customClass: {
+                                                    popup: "custom-swal-popup",
+                                                    actions: "swal-center-actions",
+                                                    icon: "custom-swal-icon",
+                                                  }
+                })
 
                 const resetStatus = candidates.reduce((acc, candidate) => {
                     acc[candidate._id] = { checked: false, submitted: false };
@@ -227,18 +293,84 @@ const CandidatesForBatch = () => {
 
                 sessionStorage.setItem('isMarkAllAttendanceDisabled', JSON.stringify(false));
             } else {
-                toast.error('Failed to reset candidates. Please try again.');
+                // toast.error('Failed to reset candidates. Please try again.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                                  <div class="custom-swal-icon-wrapper">
+                                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                                  </div>
+                                                  <hr class="custom-error-divider" />
+                                                  <div class="custom-error-message capitalize">Failed to reset candidates. Please try again.</div>
+                                                  </div>`,
+                                                  toast:false,
+                                                  position:"center",
+                                                  color:"#000",
+                                                  timer: 3000,
+                                                  timerProgressBar: true,
+                                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                                  customClass: {
+                                                    popup: "custom-swal-popup",
+                                                    actions: "swal-center-actions",
+                                                    icon: "custom-swal-icon",
+                                                  }
+                })
             }
         } catch (error) {
             console.error('Error resetting candidates:', error);
-            toast.error(error.response?.data?.message || 'Error resetting candidates');
+            // toast.error(error.response?.data?.message || 'Error resetting candidates');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                                              <div class="custom-swal-icon-wrapper">
+                                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">${error.response?.data?.message || 'Error resetting candidates'}</div>
+                                              </div>`,
+                                              toast:false,
+                                              position:"center",
+                                              color:"#000",
+                                              timer: 3000,
+                                              timerProgressBar: true,
+                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                              customClass: {
+                                                popup: "custom-swal-popup",
+                                                actions: "swal-center-actions",
+                                                icon: "custom-swal-icon",
+                                              }
+            })
         }
     };
 
     const handleResetPractical = async () => {
         const token = sessionStorage.getItem('token');
         if (!token) {
-            toast.error('Access token is missing');
+            // toast.error('Access token is missing');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                                              <div class="custom-swal-icon-wrapper">
+                                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">access token is missing</div>
+                                              </div>`,
+                                              toast:false,
+                                              position:"center",
+                                              color:"#000",
+                                              timer: 3000,
+                                              timerProgressBar: true,
+                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                              customClass: {
+                                                popup: "custom-swal-popup",
+                                                actions: "swal-center-actions",
+                                                icon: "custom-swal-icon",
+                                              }
+            })
             return;
         }
 
@@ -248,7 +380,29 @@ const CandidatesForBatch = () => {
         console.log('Candidates to reset:', candidateIdsToReset);
 
         if (candidateIdsToReset.length === 0) {
-            toast.error('No candidates selected for reset.');
+            // toast.error('No candidates selected for reset.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                                              <div class="custom-swal-icon-wrapper">
+                                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">No candidates selected for reset.</div>
+                                              </div>`,
+                                              toast:false,
+                                              position:"center",
+                                              color:"#000",
+                                              timer: 3000,
+                                              timerProgressBar: true,
+                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                              customClass: {
+                                                popup: "custom-swal-popup",
+                                                actions: "swal-center-actions",
+                                                icon: "custom-swal-icon",
+                                              }
+            })
             return;
         }
 
@@ -263,7 +417,29 @@ const CandidatesForBatch = () => {
             });
 
             if (response.status === 200 || response.status === 204) {
-                toast.success('Practical reset successfully');
+                // toast.success('Practical reset successfully');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                                  <div class="custom-swal-icon-wrapper">
+                                                  <i class="fa fa-check-circle custom-success-icon"></i>
+                                                  </div>
+                                                  <hr class="custom-error-divider" />
+                                                  <div class="custom-error-message capitalize">Practical reset successfully</div>
+                                                  </div>`,
+                                                  toast:false,
+                                                  position:"center",
+                                                  color:"#000",
+                                                  timer: 3000,
+                                                  timerProgressBar: true,
+                                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                                  customClass: {
+                                                    popup: "custom-swal-popup",
+                                                    actions: "swal-center-actions",
+                                                    icon: "custom-swal-icon",
+                                                  }
+                })
 
                 const resetStatus = candidates.reduce((acc, candidate) => {
                     acc[candidate._id] = { checked: false, submitted: false };
@@ -276,18 +452,84 @@ const CandidatesForBatch = () => {
 
                 sessionStorage.setItem('isMarkAllAttendanceDisabled', JSON.stringify(false));
             } else {
-                toast.error('Failed to reset candidates. Please try again.');
+                // toast.error('Failed to reset candidates. Please try again.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                                  <div class="custom-swal-icon-wrapper">
+                                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                                  </div>
+                                                  <hr class="custom-error-divider" />
+                                                  <div class="custom-error-message capitalize">Failed to reset candidates. Please try again.</div>
+                                                  </div>`,
+                                                  toast:false,
+                                                  position:"center",
+                                                  color:"#000",
+                                                  timer: 3000,
+                                                  timerProgressBar: true,
+                                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                                  customClass: {
+                                                    popup: "custom-swal-popup",
+                                                    actions: "swal-center-actions",
+                                                    icon: "custom-swal-icon",
+                                                  }
+                })
             }
         } catch (error) {
             console.error('Error resetting candidates:', error);
-            toast.error(error.response?.data?.message || 'Error resetting candidates');
+            // toast.error(error.response?.data?.message || 'Error resetting candidates');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                                              <div class="custom-swal-icon-wrapper">
+                                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">${error.response?.data?.message || 'Error resetting candidates'}</div>
+                                              </div>`,
+                                              toast:false,
+                                              position:"center",
+                                              color:"#000",
+                                              timer: 3000,
+                                              timerProgressBar: true,
+                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                              customClass: {
+                                                popup: "custom-swal-popup",
+                                                actions: "swal-center-actions",
+                                                icon: "custom-swal-icon",
+                                              }
+            })
         }
     };
 
     const handleResetViva = async () => {
         const token = sessionStorage.getItem('token');
         if (!token) {
-            toast.error('Access token is missing');
+            // toast.error('Access token is missing');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                                              <div class="custom-swal-icon-wrapper">
+                                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">Access token is missing</div>
+                                              </div>`,
+                                              toast:false,
+                                              position:"center",
+                                              color:"#000",
+                                              timer: 3000,
+                                              timerProgressBar: true,
+                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                              customClass: {
+                                                popup: "custom-swal-popup",
+                                                actions: "swal-center-actions",
+                                                icon: "custom-swal-icon",
+                                              }
+            })
             return;
         }
 
@@ -297,7 +539,29 @@ const CandidatesForBatch = () => {
         console.log('Candidates to reset:', candidateIdsToReset);
 
         if (candidateIdsToReset.length === 0) {
-            toast.error('No candidates selected for reset.');
+            // toast.error('No candidates selected for reset.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                                              <div class="custom-swal-icon-wrapper">
+                                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">No candidates selected for reset.</div>
+                                              </div>`,
+                                              toast:false,
+                                              position:"center",
+                                              color:"#000",
+                                              timer: 3000,
+                                              timerProgressBar: true,
+                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                              customClass: {
+                                                popup: "custom-swal-popup",
+                                                actions: "swal-center-actions",
+                                                icon: "custom-swal-icon",
+                                              }
+            })
             return;
         }
 
@@ -312,7 +576,29 @@ const CandidatesForBatch = () => {
             });
 
             if (response.status === 200 || response.status === 204) {
-                toast.success('Viva reset successfully');
+                // toast.success('Viva reset successfully');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                                  <div class="custom-swal-icon-wrapper">
+                                                  <i class="fa fa-check-circle custom-success-icon"></i>
+                                                  </div>
+                                                  <hr class="custom-error-divider" />
+                                                  <div class="custom-error-message capitalize">Viva reset successfully</div>
+                                                  </div>`,
+                                                  toast:false,
+                                                  position:"center",
+                                                  color:"#000",
+                                                  timer: 3000,
+                                                  timerProgressBar: true,
+                                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                                  customClass: {
+                                                    popup: "custom-swal-popup",
+                                                    actions: "swal-center-actions",
+                                                    icon: "custom-swal-icon",
+                                                  }
+                })
 
                 const resetStatus = candidates.reduce((acc, candidate) => {
                     acc[candidate._id] = { checked: false, submitted: false };
@@ -325,11 +611,55 @@ const CandidatesForBatch = () => {
 
                 sessionStorage.setItem('isMarkAllAttendanceDisabled', JSON.stringify(false));
             } else {
-                toast.error('Failed to reset candidates. Please try again.');
+                // toast.error('Failed to reset candidates. Please try again.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                                  <div class="custom-swal-icon-wrapper">
+                                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                                  </div>
+                                                  <hr class="custom-error-divider" />
+                                                  <div class="custom-error-message capitalize">Failed to reset candidates. Please try again.</div>
+                                                  </div>`,
+                                                  toast:false,
+                                                  position:"center",
+                                                  color:"#000",
+                                                  timer: 3000,
+                                                  timerProgressBar: true,
+                                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                                  customClass: {
+                                                    popup: "custom-swal-popup",
+                                                    actions: "swal-center-actions",
+                                                    icon: "custom-swal-icon",
+                                                  }
+                })
             }
         } catch (error) {
             console.error('Error resetting candidates:', error);
-            toast.error(error.response?.data?.message || 'Error resetting candidates');
+            // toast.error(error.response?.data?.message || 'Error resetting candidates');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                                              <div class="custom-swal-icon-wrapper">
+                                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">${error.response?.data?.message || 'Error resetting candidates'}</div>
+                                              </div>`,
+                                              toast:false,
+                                              position:"center",
+                                              color:"#000",
+                                              timer: 3000,
+                                              timerProgressBar: true,
+                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                              customClass: {
+                                                popup: "custom-swal-popup",
+                                                actions: "swal-center-actions",
+                                                icon: "custom-swal-icon",
+                                              }
+            })
         }
     };
 
@@ -425,7 +755,29 @@ const CandidatesForBatch = () => {
         );
 
         if (selectedCandidates.length === 0) {
-            toast.error("No candidates selected for download.");
+            // toast.error("No candidates selected for download.");
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                                              <div class="custom-swal-icon-wrapper">
+                                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">no candidates selected for download.</div>
+                                              </div>`,
+                                              toast:false,
+                                              position:"center",
+                                              color:"#000",
+                                              timer: 3000,
+                                              timerProgressBar: true,
+                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                              customClass: {
+                                                popup: "custom-swal-popup",
+                                                actions: "swal-center-actions",
+                                                icon: "custom-swal-icon",
+                                              }
+            })
             return;
         }
 
@@ -473,7 +825,29 @@ const CandidatesForBatch = () => {
         );
 
         if (selectedCandidates.length === 0) {
-            toast.error("No candidates selected for download.");
+            // toast.error("No candidates selected for download.");
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">no candidate selected for download.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
 

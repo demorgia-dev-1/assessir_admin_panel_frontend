@@ -5,10 +5,10 @@ import { Dropdown } from 'primereact/dropdown';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Rating } from 'primereact/rating';
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { FiDownload } from "react-icons/fi";
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 import { BASE_URL } from '../constant';
 import { setSelectedBatch, setSelectedJobRole, setSelectedSector } from '../features/assignTestSlice';
 import { fetchBatchesBySectorJobRole } from '../features/batchSlice';
@@ -100,7 +100,29 @@ const AssessorEvidence = () => {
 
     const handleAddQuestion = async () => {
         if (newQuestion.trim() === '') {
-            toast.error('Question cannot be empty.');
+            // toast.error('Question cannot be empty.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Question cannot be empty!</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
 
@@ -119,13 +141,79 @@ const AssessorEvidence = () => {
             if (response.status === 200) {
                 setQuestions([...questions, { id: questions.length + 1, text: newQuestion.trim() }]);
                 setNewQuestion('');
-                toast.success('Question added successfully!');
+                // toast.success('Question added successfully!');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fa fa-check-circle custom-success-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">Question added successfully!</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
             } else {
-                toast.error('Failed to add question.');
+                // toast.error('Failed to add question.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">Failed to add question.</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
             }
         } catch (error) {
             console.error('Error adding question:', error);
-            toast.error('Error adding question.');
+            // toast.error('Error adding question.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Error adding question.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -146,11 +234,56 @@ const AssessorEvidence = () => {
                 setQuestions(fetchedQuestions);
                 setDialogVisible2(true);
             } else {
-                toast.error('Failed to fetch questions.');
+                // toast.error('Failed to fetch questions.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">Failed to fetch questions.</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    confirmButton: "custom-confirm-button",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
             }
         } catch (error) {
             console.error('Error fetching questions:', error);
-            toast.error('Error fetching questions.');
+            // toast.error('Error fetching questions.');
+        Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Error fetching questions.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
     const handleRatingChange = (questionId, value) => {
@@ -162,7 +295,29 @@ const AssessorEvidence = () => {
 
     const handleSubmitRatings = async () => {
         if (!selectedBatch) {
-            toast.error('Please select a batch.');
+            // toast.error('Please select a batch.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please select a batch</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
 
@@ -184,14 +339,81 @@ const AssessorEvidence = () => {
             });
 
             if (response.status === 200) {
-                toast.success('Ratings submitted successfully!');
+                // toast.success('Ratings submitted successfully!');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fa fa-check-circle custom-success-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">ratings submitted successfully!</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
                 setRatings({});
             } else {
-                toast.error('Failed to submit ratings.');
+                // toast.error('Failed to submit ratings.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">failed to submit ratings.</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    confirmButton: "custom-confirm-button",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
             }
         } catch (error) {
             console.error('Error submitting ratings:', error);
-            toast.error('Error submitting ratings.');
+            // toast.error('Error submitting ratings.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">error submitting ratings.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 

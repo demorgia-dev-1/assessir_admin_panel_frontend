@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { MdContentCopy } from "react-icons/md";
 import { useLocation, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import BarChart from "../Charts/BarCharts";
 import { BASE_URL } from "../constant";
+
 
 function BatchAnalytics() {
   const [matrics, setMatrics] = React.useState();
@@ -392,7 +393,29 @@ function BatchAnalytics() {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
-   toast.success('Link copied to clipboard');
+  //  toast.success('Link copied to clipboard');
+   Swal.fire({
+    html:`<div class="custon-error-container">
+                  <div class="custom-swal-icon-wrapper">
+                  <i class="fa fa-check-circle custom-success-icon"></i>
+                  </div>
+                  <hr class="custom-error-divider" />
+                  <div class="custom-error-message capitalize">link copied to clipboard</div>
+                  </div>`,
+                  toast:false,
+                  position:"center",
+                  color:"#000",
+                  timer: 3000,
+                  timerProgressBar: true,
+                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+                  customClass: {
+                    popup: "custom-swal-popup",
+                    actions: "swal-center-actions",
+                    icon: "custom-swal-icon",
+                  }
+})
   };
 
 

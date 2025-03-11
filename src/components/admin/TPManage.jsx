@@ -5,11 +5,11 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { useEffect, useRef, useState } from 'react';
-import toast from 'react-hot-toast';
 import { FaEdit } from 'react-icons/fa';
 import { IoMdAdd, IoMdClose } from 'react-icons/io';
 import { VscClearAll } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { createTp, deleteTp, fetchTps, updateTp } from '../features/tpSlice';
 
 const ManageTp = () => {
@@ -38,7 +38,6 @@ const ManageTp = () => {
 
     const { tps } = useSelector(state => state.tp);
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (tpName && tpContact && tpAddress) {
@@ -52,15 +51,81 @@ const ManageTp = () => {
             dispatch(createTp(newTp))
                 .unwrap()
                 .then(() => {
-                    toast.success('TP added successfully!');
+                    // toast.success('TP added successfully!');
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fa fa-check-circle custom-success-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">TP added successfully!</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                     handleClear();
                 })
                 .catch((error) => {
                     const errorMessage = error.response?.data?.message || 'Failed to add TP due to an unknown error.';
-                    toast.error(`Failed to add TP: ${errorMessage}`);
+                    // toast.error(`Failed to add TP: ${errorMessage}`);
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">${`Failed to add TP: ${errorMessage}`}</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                 });
         } else {
-            toast.error("All fields are required");
+            // toast.error("All fields are required");
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">All fields are required</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -125,13 +190,57 @@ const ManageTp = () => {
     const handleCopyId = (rowData) => {
         if (rowData && rowData._id) {
             navigator.clipboard.writeText(rowData._id);
-            toast.success('TP ID copied to clipboard!');
+            // toast.success('TP ID copied to clipboard!');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fa fa-check-circle custom-success-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">TP ID copied to clipboard!</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
     const confirmActionHandler = async () => {
         if (!selectedTp || !selectedTp._id) {
-            toast.error('Invalid tp selected');
+            // toast.error('Invalid tp selected');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Invalid tp selected</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         const tpId = selectedTp._id;

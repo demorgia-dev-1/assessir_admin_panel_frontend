@@ -1,3 +1,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-error-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+  }
+
+  .custom-error-message {
+    color: #333;
+    font-size: 1rem;
+    padding: 10px;
+  }
+  .custom-error-divider {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, #ff4d4d, #ffffff);
+    margin: 10px 0 0 0;
+  }
+  .custom-swal-popup {
+    padding-bottom: 10px !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+  }
+
+.custom-confirm-button {
+    width: auto !important;
+    padding: 8px 20px !important;
+    font-size: 16px !important;
+    display: inline-block !important;
+  }
+  .custom-swal-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 15px 0;
+  }
+.custom-warning-icon{
+    font-size: 50px;
+    color: #ffcc00;
+  }
+
+  .custom-error-icon, .custom-success-icon {
+    font-size: 30px !important;
+    color: #fff  !important;
+    background-color: #ff0000 !important;
+    padding: 10px;
+    border-radius: 50%;
+  }
+  .custom-success-icon {
+    background-color: #28a745 !important;
+  }
+  .swal-top-layer {
+    z-index: 9999 !important; /* Higher than PrimeReact Dialog */
+}

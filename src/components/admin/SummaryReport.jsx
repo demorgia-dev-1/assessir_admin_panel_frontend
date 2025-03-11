@@ -1,5 +1,5 @@
 import { useState } from "react";
-import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 import { BASE_URL } from "../constant";
 
 const SummaryReport = () => {
@@ -21,7 +21,30 @@ const SummaryReport = () => {
 
         const data = await response.json();
         if(response.status === 200){
-            toast.success(data.message);
+            // toast.success(data.message);
+            Swal.fire({
+                html:`
+                <div class="custom-error-container">
+                <div class="custom-swal-icon-container">
+                <i class="fa fa-check-circle custom-error-icon"></i>
+                </div>
+                <hr class="custom-error-divider" />
+                <div class="custom-error-message">${data.message}</div>
+                </div>`,
+                toast: false,
+                position:"center",
+                timer:3000,
+                timerProgressBar:true,
+                backdrop: true,
+                color:"#000",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
         console.log(data);
     }

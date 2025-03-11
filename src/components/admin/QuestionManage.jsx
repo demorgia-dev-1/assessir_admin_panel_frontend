@@ -10,13 +10,13 @@ import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import toast from 'react-hot-toast';
 import { FaEdit } from 'react-icons/fa';
 import { IoMdAdd, IoMdClose, IoMdCloudUpload } from 'react-icons/io';
 import { MdOutlineNoteAdd } from 'react-icons/md';
 import { VscClearAll } from 'react-icons/vsc';
 import 'react-quill/dist/quill.snow.css';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { BASE_URL } from '../constant';
 import { fetchJobRolesBySector } from '../features/jobRoleSlice';
@@ -115,13 +115,57 @@ const ManageQuestion = () => {
                 hasCorrectAnswer = options.length > 0 && options.some(option => option.isCorrect);
 
                 if (!hasCorrectAnswer) {
-                    toast.error("Please provide at least one correct answer for practical/viva question.");
+                    // toast.error("Please provide at least one correct answer for practical/viva question.");
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">Please provide at least one correct answer for practical/viva question.</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                     return;
                 }
             } else {
                 hasCorrectAnswer = options.some(option => option.isCorrect);
                 if (!hasCorrectAnswer) {
-                    toast.error("Please select at least one correct option.");
+                    // toast.error("Please select at least one correct option.");
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">Please select at least one correct option.</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                     return;
                 }
             }
@@ -180,7 +224,29 @@ const ManageQuestion = () => {
             handleClear();
             dispatch(fetchQuestionsByQuestionSet(selectedPaperSet._id));
         } else {
-            toast.error("Please fill in all required fields.");
+            // toast.error("Please fill in all required fields.");
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Please fill in all required fields.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -212,7 +278,29 @@ const ManageQuestion = () => {
 
     const downloadQuestions = () => {
         if (!selectedQuestion || selectedQuestion.length === 0) {
-            toast.error('No questions selected to download.');
+            // toast.error('No questions selected to download.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">No questions selected to download.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         const data = selectedQuestion?.length > 0 ? selectedQuestion : questions;
@@ -358,7 +446,29 @@ const ManageQuestion = () => {
             const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
             saveAs(blob, `practicalQuestionset:${selectedPaperSet._id}.xlsx`);
         } else {
-            toast.error('No NOS available in this job role to create the workbook.');
+            // toast.error('No NOS available in this job role to create the workbook.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">No NOS available in this job role to create the workbook.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
     const handleDownloadViva = () => {
@@ -398,7 +508,29 @@ const ManageQuestion = () => {
             const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
             saveAs(blob, `vivaQuestionset:${selectedPaperSet._id}.xlsx`);
         } else {
-            toast.error('No NOS available in this job role to create the workbook.');
+            // toast.error('No NOS available in this job role to create the workbook.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">No NOS available in this job role to create the workbook.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -440,7 +572,29 @@ const ManageQuestion = () => {
             const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
             saveAs(blob, `theoryQuestionset:${selectedPaperSet._id}.xlsx`);
         } else {
-            toast.error('No NOS available in this job role to create the workbook.');
+            // toast.error('No NOS available in this job role to create the workbook.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">'No NOS available in this job role to create the workbook.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -545,11 +699,55 @@ const ManageQuestion = () => {
                 });
 
                 dispatch(fetchQuestionsByQuestionSet(selectedPaperSet?._id));
-                toast.success('Data uploaded successfully!');
+                // toast.success('Data uploaded successfully!');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fa fa-check-circle custom-success-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">Data uploaded successfully!</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
 
             } catch (error) {
                 console.error('Error uploading data:', error);
-                toast.error(error.response?.data?.message || 'Error uploading data.');
+                // toast.error(error.response?.data?.message || 'Error uploading data.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">${error.response?.data?.message || 'Error uploading data.'}</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
             }
         };
 
@@ -601,7 +799,29 @@ const ManageQuestion = () => {
             setIsEditFormVisible(false);
             dispatch(fetchQuestionsByQuestionSet(selectedPaperSet._id));
         } else {
-            toast.error("Failed to update the question. Please try again.");
+            // toast.error("Failed to update the question. Please try again.");
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Failed to update the question. Please try again.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -623,7 +843,29 @@ const ManageQuestion = () => {
 
     const confirmActionHandler = async () => {
         if (!selectedQuestion || !selectedQuestion._id) {
-            toast.error('Invalid Question selected');
+            // toast.error('Invalid Question selected');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Invalid Question selected</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         const pcId = selectedQuestion._id;
@@ -646,7 +888,29 @@ const ManageQuestion = () => {
     const handleCopyId = (rowData) => {
         if (rowData && rowData._id) {
             navigator.clipboard.writeText(rowData._id);
-            toast.success('Question Id copied to clipboard!');
+            // toast.success('Question Id copied to clipboard!');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fa fa-check-circle custom-success-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Question Id copied to clipboard!</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -764,7 +1028,29 @@ const ManageQuestion = () => {
 
             if(response.status === 200){
 
-                toast.success('Your Translation in under Process.');
+                // toast.success('Your Translation in under Process.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fa fa-check-circle custom-success-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">Your Translation in under Process.</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
                 dispatch(fetchQuestionsByQuestionSet(selectedPaperSet._id));
                 setIsTranslating(true);
             }
@@ -772,7 +1058,29 @@ const ManageQuestion = () => {
         }
         catch (error) {
             console.error('Error translating question:', error);
-            toast.error(error.response?.data?.message || 'Error translating question.');
+            // toast.error(error.response?.data?.message || 'Error translating question.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">${error.response?.data?.message || 'Error translating question.'}</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     }
 

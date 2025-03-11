@@ -1,4 +1,5 @@
 
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "primeicons/primeicons.css";
 import { ProgressSpinner } from "primereact/progressspinner";
 import "primereact/resources/primereact.min.css";

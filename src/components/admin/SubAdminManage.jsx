@@ -10,11 +10,11 @@ import { MultiSelect } from 'primereact/multiselect';
 import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import { useEffect, useRef, useState } from 'react';
-import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { IoMdAdd } from 'react-icons/io';
 import { VscClearAll } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { createSubAdmin, fetchSectors, fetchSubAdmins, updateSubAdmin } from '../features/subAdminSlice';
 
 const SubAdminManage = () => {
@@ -64,14 +64,80 @@ const SubAdminManage = () => {
             dispatch(createSubAdmin(payload))
                 .unwrap()
                 .then(() => {
-                    toast.success('Sub-admin created successfully!');
+                    // toast.success('Sub-admin created successfully!');
+                    Swal.fire({
+                                                html:`<div class="custon-error-container">
+                                                              <div class="custom-swal-icon-wrapper">
+                                                              <i class="fa fa-check-circle custom-success-icon"></i>
+                                                              </div>
+                                                              <hr class="custom-error-divider" />
+                                                              <div class="custom-error-message capitalize">Sub-admin created successfully!</div>
+                                                              </div>`,
+                                                              toast:false,
+                                                              position:"center",
+                                                              color:"#000",
+                                                              timer: 3000,
+                                                              timerProgressBar: true,
+                                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                                              customClass: {
+                                                                popup: "custom-swal-popup",
+                                                                actions: "swal-center-actions",
+                                                                icon: "custom-swal-icon",
+                                                              }
+                                            })
                     handleClear();
                 })
                 .catch((err) => {
-                    toast.error(`Error: ${err.message}`);
+                    // toast.error(`Error: ${err.message}`);
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">${`Error: ${err.message}`}</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                 });
         } else {
-            toast.error('All fields are required');
+            // toast.error('All fields are required');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">All fields are required</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -139,7 +205,29 @@ const SubAdminManage = () => {
 
     const handleCopyId = (rowData) => {
         navigator.clipboard.writeText(rowData._id);
-        toast.success('TP copied to clipboard');
+        // toast.success('TP copied to clipboard');
+        Swal.fire({
+            html:`<div class="custon-error-container">
+                          <div class="custom-swal-icon-wrapper">
+                          <i class="fa fa-check-circle custom-success-icon"></i>
+                          </div>
+                          <hr class="custom-error-divider" />
+                          <div class="custom-error-message capitalize">TP copied to clipboard</div>
+                          </div>`,
+                          toast:false,
+                          position:"center",
+                          color:"#000",
+                          timer: 3000,
+                          timerProgressBar: true,
+                          backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                          customClass: {
+                            popup: "custom-swal-popup",
+                            actions: "swal-center-actions",
+                            icon: "custom-swal-icon",
+                          }
+        })
     };
 
     const menuRefs = useRef([]);

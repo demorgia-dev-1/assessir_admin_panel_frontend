@@ -11,17 +11,18 @@ import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import { useEffect, useRef, useState } from 'react';
 import Cropper from 'react-cropper';
-import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { IoMdAdd, IoMdClose } from 'react-icons/io';
 import { VscClearAll } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { clearAssessors, createAssessor, deleteAssessor, fetchAssessors, fetchAssessorsByJobRole, fetchJobRoles, setItemsPerPage, setSelectedCity, setSelectedCountry, setSelectedJobRoles, setSelectedSectors, setSelectedState, updateAssessors } from '../features/assessorSlice';
 import { fetchCitiesByStateId, fetchStates } from '../features/citySlice';
 import { fetchAllCountries } from '../features/countrySlice';
 import { fetchSectors } from '../features/subAdminSlice';
+
 
 
 const ManageAssessor = () => {
@@ -161,17 +162,83 @@ const ManageAssessor = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!validateEmail(assessorEmail)) {
-            toast.error('Invalid email format');
+            // toast.error('Invalid email format');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">invalid email format</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
 
         if (!validateMobile(assessorContact)) {
-            toast.error('Invalid mobile number. It should be 10 digits.');
+            // toast.error('Invalid mobile number. It should be 10 digits.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">invalid mobile number. it should be 10 digits.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
 
         if (!validatePassword(assessorPassword)) {
-            toast.error('Password must be exactly 8 characters long.');
+            // toast.error('Password must be exactly 8 characters long.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">password must be exactly 8 characters long.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
 
@@ -255,13 +322,81 @@ const ManageAssessor = () => {
                     const url = URL.createObjectURL(blob);
                     setCroppedImageUrl(url);
                     setShowCropper(false);
-                    toast.success('Image cropped successfully!');
+                    // toast.success('Image cropped successfully!');
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fa fa-check-circle custom-success-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">image cropped successfully!</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        confirmButton: "custom-confirm-button",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                 } else {
-                    toast.error('Failed to get cropped canvas. Please try again.');
+                    // toast.error('Failed to get cropped canvas. Please try again.');
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">failed to get cropped canvas. please try again.</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        confirmButton: "custom-confirm-button",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                 }
             }, 'image/png');
         } else {
-            toast.error('Cropper instance is not available. Please try again.');
+            // toast.error('Cropper instance is not available. Please try again.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">cropper instance is not available. please try again.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -357,7 +492,29 @@ const ManageAssessor = () => {
 
     const confirmActionHandler = async () => {
         if (!selectedAssessor || !selectedAssessor._id) {
-            toast.error('Invalid Assessor selected');
+            // toast.error('Invalid Assessor selected');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">invalid assessor selected</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         const assessorId = selectedAssessor._id;
@@ -373,7 +530,29 @@ const ManageAssessor = () => {
 
     const handleCopyId = (rowData) => {
         navigator.clipboard.writeText(rowData._id);
-        toast.success('Assessor ID copied to clipboard!');
+        // toast.success('Assessor ID copied to clipboard!');
+        Swal.fire({
+            html:`<div class="custon-error-container">
+                          <div class="custom-swal-icon-wrapper">
+                          <i class="fa fa-check-circle custom-success-icon"></i>
+                          </div>
+                          <hr class="custom-error-divider" />
+                          <div class="custom-error-message capitalize">assessir ID copied to clipboard!</div>
+                          </div>`,
+                          toast:false,
+                          position:"center",
+                          color:"#000",
+                          timer: 3000,
+                          timerProgressBar: true,
+                          backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                          customClass: {
+                            popup: "custom-swal-popup",
+                            actions: "swal-center-actions",
+                            icon: "custom-swal-icon",
+                          }
+        })
     };
     const type = sessionStorage.getItem("type");
 

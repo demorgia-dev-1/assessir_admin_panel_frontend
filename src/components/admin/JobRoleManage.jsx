@@ -6,13 +6,14 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { useEffect, useRef, useState } from 'react';
-import toast from 'react-hot-toast';
 import { FaEdit } from 'react-icons/fa';
 import { IoMdAdd, IoMdClose } from 'react-icons/io';
 import { VscClearAll } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { createJobRole, deleteJobRole, fetchJobRolesBySector, lockJobRole, setSelectedSector, unlockJobRole, updateJobRole } from '../features/jobRoleSlice';
 import { fetchSectors } from '../features/subAdminSlice';
+
 
 
 const JobRoleManage = () => {
@@ -149,7 +150,29 @@ const JobRoleManage = () => {
                 dispatch(fetchJobRolesBySector(selectedSector._id));
             }
         } catch (error) {
-            toast.error("An error occurred");
+            // toast.error("An error occurred");
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">An error occurred</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -180,13 +203,57 @@ const JobRoleManage = () => {
     const handleCopyId = (rowData) => {
         if (rowData && rowData._id) {
             navigator.clipboard.writeText(rowData._id);
-            toast.success('Job Role ID copied to clipboard!');
+            // toast.success('Job Role ID copied to clipboard!');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fa fa-check-circle custom-success-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Job Role ID copied to clipboard!</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
     const confirmActionHandler = async () => {
         if (!selectedJobRole || !selectedJobRole._id) {
-            toast.error('Invalid job role selected');
+            // toast.error('Invalid job role selected');
+            Swal.fire({
+                            html:`<div class="custon-error-container">
+                                          <div class="custom-swal-icon-wrapper">
+                                          <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                          </div>
+                                          <hr class="custom-error-divider" />
+                                          <div class="custom-error-message capitalize">Invalid job role selected</div>
+                                          </div>`,
+                                          toast:false,
+                                          position:"center",
+                                          color:"#000",
+                                          timer: 3000,
+                                          timerProgressBar: true,
+                                          backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                          customClass: {
+                                            popup: "custom-swal-popup",
+                                            actions: "swal-center-actions",
+                                            icon: "custom-swal-icon",
+                                          }
+                        })
             return;
         }
 
@@ -205,7 +272,29 @@ const JobRoleManage = () => {
             }
             dispatch(fetchJobRolesBySector(selectedSector._id));
         } catch (error) {
-            toast.error(error);
+            // toast.error(error);
+            Swal.fire({
+                            html:`<div class="custon-error-container">
+                                          <div class="custom-swal-icon-wrapper">
+                                          <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                          </div>
+                                          <hr class="custom-error-divider" />
+                                          <div class="custom-error-message capitalize">${error}</div>
+                                          </div>`,
+                                          toast:false,
+                                          position:"center",
+                                          color:"#000",
+                                          timer: 3000,
+                                          timerProgressBar: true,
+                                          backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                          customClass: {
+                                            popup: "custom-swal-popup",
+                                            actions: "swal-center-actions",
+                                            icon: "custom-swal-icon",
+                                          }
+                        })
         } finally {
             setIsConfirmVisible(false);
             setSelectedJobRole(null);

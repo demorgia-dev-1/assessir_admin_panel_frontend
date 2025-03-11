@@ -9,17 +9,18 @@ import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import toast from 'react-hot-toast';
 import { FaEdit } from 'react-icons/fa';
 import { IoMdAdd, IoMdClose, IoMdCloudUpload } from 'react-icons/io';
 import { MdOutlineNoteAdd } from 'react-icons/md';
 import { VscClearAll } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { BASE_URL } from '../constant';
 import { fetchJobRolesBySector } from '../features/jobRoleSlice';
 import { addNos, deleteNos, fetchNos, setSelectedJobRole, setSelectedSector, updateNos } from '../features/nosSlice';
 import { fetchSectors } from '../features/subAdminSlice';
+
 
 
 const NOSDetailsManage = () => {
@@ -180,13 +181,57 @@ const NOSDetailsManage = () => {
     const handleCopyId = (rowData) => {
         if (rowData && rowData._id) {
             navigator.clipboard.writeText(rowData._id);
-            toast.success('NOS ID copied to clipboard!');
+            // toast.success('NOS ID copied to clipboard!');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fa fa-check-circle custom-success-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">NOS ID copied to clipboard!</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
     const confirmActionHandler = async () => {
         if (!selectedNOS || !selectedNOS._id) {
-            toast.error('Invalid NOS selected');
+            // toast.error('Invalid NOS selected');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Invalid NOS selected</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         const nosId = selectedNOS._id;
@@ -326,7 +371,29 @@ const NOSDetailsManage = () => {
 
             if (validationErrors.length > 0) {
                 setErrorMessage(validationErrors.join('\n'));
-                toast.error('Validation errors found. Please check the error messages.');
+                // toast.error('Validation errors found. Please check the error messages.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">Validation errors found. Please check the error messages.</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
                 return;
             }
 
@@ -339,14 +406,80 @@ const NOSDetailsManage = () => {
                 });
 
                 if (response.status === 200) {
-                    toast.success('Data uploaded successfully!');
+                    // toast.success('Data uploaded successfully!');
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fa fa-check-circle custom-success-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">Data uploaded successfully!</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                     dispatch(fetchNos(selectedJobRole._id));
                 } else {
-                    toast.error('Error uploading data.');
+                    // toast.error('Error uploading data.');
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">Error uploading data.</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                 }
             } catch (error) {
                 console.error('Error uploading data:', error);
-                toast.error('Error uploading data.');
+                // toast.error('Error uploading data.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">Error uploading data.</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
             }
         };
 

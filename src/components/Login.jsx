@@ -6,9 +6,11 @@ import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { HiArrowCircleRight } from "react-icons/hi";
 import { Link, Navigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import img from '../assets/lgog.png';
 import logo from '../assets/loginlogo.png';
 import { BASE_URL } from '../components/constant';
+
 
 function Login({ onLogin }) {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -65,7 +67,29 @@ function Login({ onLogin }) {
                 const adminId = response.data.data.companyAdminDetails._id;
                 const name = response.data.data.companyAdminDetails.name;
                 const type = response.data.data.companyAdminDetails.type;
-                toast.success('Login successful!');
+                // toast.success('Login successful!');
+                Swal.fire({
+                                      html:`<div class="custon-error-container">
+                                                    <div class="custom-swal-icon-wrapper">
+                                                    <i class="fa fa-check-circle custom-success-icon"></i>
+                                                    </div>
+                                                    <hr class="custom-error-divider" />
+                                                    <div class="custom-error-message capitalize">Login successfull!</div>
+                                                    </div>`,
+                                                    toast:false,
+                                                    position:"center",
+                                                    color:"#000",
+                                                    timer: 3000,
+                                                    timerProgressBar: true,
+                                                    backdrop: true,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false, 
+                                                    customClass: {
+                                                      popup: "custom-swal-popup",
+                                                      actions: "swal-center-actions",
+                                                      icon: "custom-swal-icon",
+                                                    }
+                                  })
                 setFormData({ email: '', password: '' });
                 sessionStorage.setItem("token", token);
                 sessionStorage.setItem("adminId", adminId);
@@ -77,7 +101,29 @@ function Login({ onLogin }) {
             } catch (error) {
                 console.error('Login error:', error);
                 const errorMessage = error.response?.data?.message || error.message || 'Something went wrong';
-                toast.error(errorMessage);
+                // toast.error(errorMessage);
+                Swal.fire({
+                                      html:`<div class="custon-error-container">
+                                                    <div class="custom-swal-icon-wrapper">
+                                                    <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                                    </div>
+                                                    <hr class="custom-error-divider" />
+                                                    <div class="custom-error-message capitalize">${errorMessage}</div>
+                                                    </div>`,
+                                                    toast:false,
+                                                    position:"center",
+                                                    color:"#000",
+                                                    timer: 3000,
+                                                    timerProgressBar: true,
+                                                    backdrop: true,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                                                    customClass: {
+                                                      popup: "custom-swal-popup",
+                                                      actions: "swal-center-actions",
+                                                      icon: "custom-swal-icon",
+                                                    }
+                                  })
             }
         }
     };

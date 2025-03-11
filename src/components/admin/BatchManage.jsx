@@ -9,19 +9,21 @@ import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import toast from 'react-hot-toast';
 import { IoMdAdd, IoMdClose, IoMdCloudUpload } from "react-icons/io";
 import { MdOutlineNoteAdd } from 'react-icons/md';
 import { VscClearAll } from "react-icons/vsc";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { BASE_URL } from '../constant';
 import { clearBatchResponses, createBatch, deleteBatch, deleteCandidateFromBatch, extendEndDate, fetchBatchesBySectorJobRole, setSelectedJobRole, setSelectedSector, updateBatch } from '../features/batchSlice';
 import { fetchAllCountries } from '../features/countrySlice';
 import { fetchJobRolesBySector } from '../features/jobRoleSlice';
 import { fetchSectors } from '../features/subAdminSlice';
+
+
 
 
 const ManageBatch = () => {
@@ -83,40 +85,238 @@ const ManageBatch = () => {
         e.preventDefault();
 
         if (!selectedSector) {
-            toast.error('Please select a Sector');
+            // toast.error('Please select a Sector');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please select a sector</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         if (!selectedJobRole) {
-            toast.error('Please select a Job Role');
+            // toast.error('Please select a Job Role');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please select a job role</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
 
         if (!batchName) {
-            toast.error('Please enter a Batch Name');
+            // toast.error('Please enter a Batch Name');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                               <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please enter a batch  name</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         if (!batchType) {
-            toast.error('Please select a Batch Type');
+            // toast.error('Please select a Batch Type');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                               <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please select a batch type</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         if (!batchNo) {
-            toast.error('Please enter a Batch No');
+            // toast.error('Please enter a Batch No');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                               <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please enter a batch no</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         if (!assessmentStartDate) {
-            toast.error('Please select an Assessment Start Date');
+            // toast.error('Please select an Assessment Start Date');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                               <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please select an assessment start date</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         if (!assessmentEndDate) {
-            toast.error('Please select an Assessment End Date');
+            // toast.error('Please select an Assessment End Date');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                               <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please select an assessment end date</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         if (!assessmentDuration) {
-            toast.error('Please enter an Assessment Duration');
+            // toast.error('Please enter an Assessment Duration');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                               <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please enter an assessment duration</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         if (!numberOfCandidates) {
-            toast.error('Please enter the Number of Candidates');
+            // toast.error('Please enter the Number of Candidates');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                               <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">please enter the number of candidates</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
 
@@ -142,7 +342,29 @@ const ManageBatch = () => {
         try {
             await dispatch(createBatch(payload)).unwrap();
 
-            toast.success('Batch created successfully');
+            // toast.success('Batch created successfully');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fa fa-check-circle custom-success-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">batch created successfully</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             dispatch(fetchBatchesBySectorJobRole({ sectorId: selectedSector?._id, jobRoleId: selectedJobRole._id }));
             setBatchName('');
             setBatchType('');
@@ -155,7 +377,29 @@ const ManageBatch = () => {
             setNumberOfCandidates('');
 
         } catch (error) {
-            toast.error('Failed to create batch');
+            // toast.error('Failed to create batch');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                               <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">failed to create batch</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             console.error("Error creating batch:", error);
         }
     };
@@ -288,12 +532,58 @@ const ManageBatch = () => {
 
             if (missingFields.length > 0) {
                 const missingFieldsMessage = missingFields.map(batch => `Batch ${batch.index + 1}: ${batch.fields.join(', ')}`).join('\n');
-                toast.error(`Please ensure all required fields are filled in the uploaded file:\n${missingFieldsMessage}`);
+                // toast.error(`Please ensure all required fields are filled in the uploaded file:\n${missingFieldsMessage}`);
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fa fa-check-circle custom-success-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">${`Please ensure all required fields are filled in the uploaded file:\n${missingFieldsMessage}`}</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  confirmButton: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    confirmButton: "custom-confirm-button",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
                 return;
             }
 
             if (hasDuplicateBatchNumbers) {
-                toast.error('Duplicate batch numbers found in the uploaded file.');
+                // toast.error('Duplicate batch numbers found in the uploaded file.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">Duplicate batch numbers found in the uploaded file.</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
                 return;
             }
 
@@ -306,14 +596,84 @@ const ManageBatch = () => {
                 });
 
                 if (response.status === 200) {
-                    toast.success('Data uploaded successfully!');
+                    // toast.success('Data uploaded successfully!');
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fa fa-check-circle custom-success-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">data uploaded successfully!</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                     dispatch(fetchBatchesBySectorJobRole({ sectorId: selectedSector?._id, jobRoleId: selectedJobRole._id }));
                 } else {
-                    toast.error(response.data.error.description || 'Error uploading data');
+                    // toast.error(response.data.error.description || 'Error uploading data');
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">${response.data.error.description || 'Error uploading data'}</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      confirmButton: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        confirmButton: "custom-confirm-button",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                 }
             } catch (error) {
                 console.error('Error uploading data:', error);
-                toast.error(error.response.data.message || 'Error uploading data');
+                // toast.error(error.response.data.message || 'Error uploading data');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">${error.response.data.message || 'Error uploading data'}</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  confirmButton: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    confirmButton: "custom-confirm-button",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
             }
         };
 
@@ -559,13 +919,59 @@ const ManageBatch = () => {
     const handleCopyId = (rowData) => {
         if (rowData && rowData._id) {
             navigator.clipboard.writeText(rowData._id);
-            toast.success('Batch Id copied to clipboard!');
+            // toast.success('Batch Id copied to clipboard!');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fa fa-check-circle custom-success-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Candidate copied to clipboard!</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                confirmButton: "custom-confirm-button",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
     const confirmActionHandler = async () => {
         if (!selectedBatch || !selectedBatch._id) {
-            toast.error('Invalid Batch selected');
+            // toast.error('Invalid Batch selected');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Candidate copied to clipboard!</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                confirmButton: "custom-confirm-button",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         const batchId = selectedBatch._id;

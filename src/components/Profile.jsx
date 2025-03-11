@@ -2,13 +2,14 @@ import axios from "axios";
 import "cropperjs/dist/cropper.css";
 import { useEffect, useRef, useState } from "react";
 import { Cropper } from "react-cropper";
-import toast from "react-hot-toast";
 import { FaCamera, FaEdit } from "react-icons/fa";
 import { RiHomeOfficeLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import adminLogo from "../assets/admin.png";
 import { fetchAdminProfile } from "../components/features/profileSlice";
 import { BASE_URL } from "./constant";
+
 
 const Profile = () => {
   const [editMode, setEditMode] = useState(false);
@@ -75,13 +76,57 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      toast.success("Profile updated successfully!");
+      // toast.success("Profile updated successfully!");
+      Swal.fire({
+                      html:`<div class="custon-error-container">
+                                    <div class="custom-swal-icon-wrapper">
+                                    <i class="fa fa-check-circle custom-success-icon"></i>
+                                    </div>
+                                    <hr class="custom-error-divider" />
+                                    <div class="custom-error-message capitalize">Profile updated successfully!</div>
+                                    </div>`,
+                                    toast:false,
+                                    position:"center",
+                                    color:"#000",
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    backdrop: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false, 
+                                    customClass: {
+                                      popup: "custom-swal-popup",
+                                      actions: "swal-center-actions",
+                                      icon: "custom-swal-icon",
+                                    }
+                  })
       dispatch(fetchAdminProfile(adminId));
       setEditMode(false);
       setEditType("");
     } catch (error) {
       console.error("Error updating profile:", error);
-      toast.error("Failed to update profile. Please try again.");
+      // toast.error("Failed to update profile. Please try again.");
+      Swal.fire({
+                      html:`<div class="custon-error-container">
+                                    <div class="custom-swal-icon-wrapper">
+                                    <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                    </div>
+                                    <hr class="custom-error-divider" />
+                                    <div class="custom-error-message capitalize">Failed to update profile. Please try again.</div>
+                                    </div>`,
+                                    toast:false,
+                                    position:"center",
+                                    color:"#000",
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    backdrop: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false, 
+                                    customClass: {
+                                      popup: "custom-swal-popup",
+                                      actions: "swal-center-actions",
+                                      icon: "custom-swal-icon",
+                                    }
+                  })
     }
   };
 
@@ -100,16 +145,57 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      toast.success("Company updated successfully!");
+      // toast.success("Company updated successfully!");
+      Swal.fire({
+        html:`<div class="custon-error-container">
+                      <div class="custom-swal-icon-wrapper">
+                      <i class="fa fa-check-circle custom-success-icon"></i>
+                      </div>
+                      <hr class="custom-error-divider" />
+                      <div class="custom-error-message capitalize">Company updated successfully!</div>
+                      </div>`,
+                      toast:false,
+                      position:"center",
+                      color:"#000",
+                      timer: 3000,
+                      timerProgressBar: true,
+                      backdrop: true,
+allowOutsideClick: false,
+allowEscapeKey: false,
+                      customClass: {
+                        popup: "custom-swal-popup",
+                        actions: "swal-center-actions",
+                        icon: "custom-swal-icon",
+                      }
+    })
       dispatch(fetchAdminProfile(adminId));
       setEditMode(false);
       setEditType("");
     } catch (error) {
       console.error("Error updating company:", error);
-      toast.error(
-        error.response.data.message ||
-          "Failed to update company. Please try again."
-      );
+      // toast.error(error.response.data.message || "Failed to update company. Please try again.");
+      Swal.fire({
+                      html:`<div class="custon-error-container">
+                                    <div class="custom-swal-icon-wrapper">
+                                    <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                    </div>
+                                    <hr class="custom-error-divider" />
+                                    <div class="custom-error-message capitalize">${error.response.data.message || "Failed to update company. Please try again."}</div>
+                                    </div>`,
+                                    toast:false,
+                                    position:"center",
+                                    color:"#000",
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    backdrop: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+                                    customClass: {
+                                      popup: "custom-swal-popup",
+                                      actions: "swal-center-actions",
+                                      icon: "custom-swal-icon",
+                                    }
+                  })
     }
   };
   const handleImageChange = (e) => {
@@ -164,12 +250,56 @@ const Profile = () => {
           },
         }
       );
-      toast.success("Profile picture updated successfully!");
+      // toast.success("Profile picture updated successfully!");
+      Swal.fire({
+        html:`<div class="custon-error-container">
+                      <div class="custom-swal-icon-wrapper">
+                      <i class="fa fa-check-circle custom-success-icon"></i>
+                      </div>
+                      <hr class="custom-error-divider" />
+                      <div class="custom-error-message capitalize">Profile picture updated successfully!</div>
+                      </div>`,
+                      toast:false,
+                      position:"center",
+                      color:"#000",
+                      timer: 3000,
+                      timerProgressBar: true,
+                      backdrop: true,
+allowOutsideClick: false,
+allowEscapeKey: false, 
+                      customClass: {
+                        popup: "custom-swal-popup",
+                        actions: "swal-center-actions",
+                        icon: "custom-swal-icon",
+                      }
+    })
       dispatch(fetchAdminProfile(adminId));
       setAvatar(null);
     } catch (error) {
       console.error("Error updating profile picture:", error);
-      toast.error("Failed to update profile picture. Please try again.");
+      // toast.error("Failed to update profile picture. Please try again.");
+      Swal.fire({
+                      html:`<div class="custon-error-container">
+                                    <div class="custom-swal-icon-wrapper">
+                                    <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                    </div>
+                                    <hr class="custom-error-divider" />
+                                    <div class="custom-error-message capitalize">Failed to update profile picture. Please try again.</div>
+                                    </div>`,
+                                    toast:false,
+                                    position:"center",
+                                    color:"#000",
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    backdrop: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false, 
+                                    customClass: {
+                                      popup: "custom-swal-popup",
+                                      actions: "swal-center-actions",
+                                      icon: "custom-swal-icon",
+                                    }
+                  })
     }
   };
 
@@ -185,15 +315,59 @@ const Profile = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("Company picture updated successfully!");
+      // toast.success("Company picture updated successfully!");
+      Swal.fire({
+                      html:`<div class="custon-error-container">
+                                    <div class="custom-swal-icon-wrapper">
+                                    <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                    </div>
+                                    <hr class="custom-error-divider" />
+                                    <div class="custom-error-message capitalize">Company picture updated successfully!</div>
+                                    </div>`,
+                                    toast:false,
+                                    position:"center",
+                                    color:"#000",
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    backdrop: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false, 
+                                    customClass: {
+                                      popup: "custom-swal-popup",
+                                      actions: "swal-center-actions",
+                                      icon: "custom-swal-icon",
+                                    }
+                  })
       dispatch(fetchAdminProfile(adminId));
       setCompanyAvatar(null);
     } catch (error) {
       console.error("Error updating company picture:", error);
-      toast.error(
-        error.response.data.message ||
-          "Failed to update company picture. Please try again."
-      );
+      // toast.error(
+      //   error.response.data.message ||
+      //     "Failed to update company picture. Please try again."
+      // );
+      Swal.fire({
+                      html:`<div class="custon-error-container">
+                                    <div class="custom-swal-icon-wrapper">
+                                    <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                    </div>
+                                    <hr class="custom-error-divider" />
+                                    <div class="custom-error-message capitalize">${error.response.data.message || "Failed to update company picture. Please try again."}</div>
+                                    </div>`,
+                                    toast:false,
+                                    position:"center",
+                                    color:"#000",
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    backdrop: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false, 
+                                    customClass: {
+                                      popup: "custom-swal-popup",
+                                      actions: "swal-center-actions",
+                                      icon: "custom-swal-icon",
+                                    }
+                  })
     }
   };
 

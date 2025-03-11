@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { BASE_URL } from './constant';
 
 const ForgotPassword = () => {
@@ -40,11 +40,55 @@ const ForgotPassword = () => {
         try {
             await axios.post(`${BASE_URL}company/forgot-password`, { email });
 
-            toast.success('OTP sent to your email');
+            // toast.success('OTP sent to your email');
+                  Swal.fire({
+                                  html:`<div class="custon-error-container">
+                                                <div class="custom-swal-icon-wrapper">
+                                                <i class="fa fa-check-circle custom-success-icon"></i>
+                                                </div>
+                                                <hr class="custom-error-divider" />
+                                                <div class="custom-error-message capitalize">OTP sent to your email</div>
+                                                </div>`,
+                                                toast:false,
+                                                position:"center",
+                                                color:"#000",
+                                                timer: 3000,
+                                                timerProgressBar: true,
+                                                backdrop: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                                                customClass: {
+                                                  popup: "custom-swal-popup",
+                                                  actions: "swal-center-actions",
+                                                  icon: "custom-swal-icon",
+                                                }
+                              })
             setOtpSent(true);
 
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Error sending OTP');
+            // toast.error(error.response?.data?.message || 'Error sending OTP');
+                  Swal.fire({
+                                  html:`<div class="custon-error-container">
+                                                <div class="custom-swal-icon-wrapper">
+                                                <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                                </div>
+                                                <hr class="custom-error-divider" />
+                                                <div class="custom-error-message capitalize">${error.response?.data?.message || 'Error sending OTP'}</div>
+                                                </div>`,
+                                                toast:false,
+                                                position:"center",
+                                                color:"#000",
+                                                timer: 3000,
+                                                timerProgressBar: true,
+                                                backdrop: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false, 
+                                                customClass: {
+                                                  popup: "custom-swal-popup",
+                                                  actions: "swal-center-actions",
+                                                  icon: "custom-swal-icon",
+                                                }
+                              })
         }
     };
 
@@ -52,17 +96,83 @@ const ForgotPassword = () => {
     const handleUpdatePassword = async (e) => {
         e.preventDefault();
         if (newPassword !== confirmPassword) {
-            toast.error('Passwords do not match');
+            // toast.error('Passwords do not match');
+                  Swal.fire({
+                                  html:`<div class="custon-error-container">
+                                                <div class="custom-swal-icon-wrapper">
+                                                <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                                </div>
+                                                <hr class="custom-error-divider" />
+                                                <div class="custom-error-message capitalize">Passwords do not match</div>
+                                                </div>`,
+                                                toast:false,
+                                                position:"center",
+                                                color:"#000",
+                                                timer: 3000,
+                                                timerProgressBar: true,
+                                                backdrop: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                                                customClass: {
+                                                  popup: "custom-swal-popup",
+                                                  actions: "swal-center-actions",
+                                                  icon: "custom-swal-icon",
+                                                }
+                              })
             return;
         }
         try {
             await axios.post(`${BASE_URL}company/reset-password`, { email, otp, password: newPassword });
 
-            toast.success('Password updated successfully');
+            // toast.success('Password updated successfully');
+                  Swal.fire({
+                                  html:`<div class="custon-error-container">
+                                                <div class="custom-swal-icon-wrapper">
+                                                <i class="fa fa-check-circle custom-success-icon"></i>
+                                                </div>
+                                                <hr class="custom-error-divider" />
+                                                <div class="custom-error-message capitalize">Password updated successfully</div>
+                                                </div>`,
+                                                toast:false,
+                                                position:"center",
+                                                color:"#000",
+                                                timer: 3000,
+                                                timerProgressBar: true,
+                                                backdrop: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false, 
+                                                customClass: {
+                                                  popup: "custom-swal-popup",
+                                                  actions: "swal-center-actions",
+                                                  icon: "custom-swal-icon",
+                                                }
+                              })
             navigate('/login');
 
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Error updating password');
+            // toast.error(error.response?.data?.message || 'Error updating password');
+                  Swal.fire({
+                                  html:`<div class="custon-error-container">
+                                                <div class="custom-swal-icon-wrapper">
+                                                <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                                </div>
+                                                <hr class="custom-error-divider" />
+                                                <div class="custom-error-message capitalize">${error.response?.data?.message || 'Error updating password'}</div>
+                                                </div>`,
+                                                toast:false,
+                                                position:"center",
+                                                color:"#000",
+                                                timer: 3000,
+                                                timerProgressBar: true,
+                                                backdrop: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false, 
+                                                customClass: {
+                                                  popup: "custom-swal-popup",
+                                                  actions: "swal-center-actions",
+                                                  icon: "custom-swal-icon",
+                                                }
+                              })
         }
     };
 

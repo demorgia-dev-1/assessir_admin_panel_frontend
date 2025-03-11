@@ -6,10 +6,10 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { useEffect, useRef, useState } from 'react';
-import toast from 'react-hot-toast';
 import { IoMdAdd } from 'react-icons/io';
 import { VscClearAll } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { fetchJobRolesBySector } from '../features/jobRoleSlice';
 import { createQuestionSet, deleteQuestionSet, fetchQuestionSetsBySectorJobRole, lockQuestionSet, setSelectedJobRole, setSelectedSector, unlockQuestionSet, updateQuestionSet } from '../features/questionSetSlice';
 import { fetchSectors } from '../features/subAdminSlice';
@@ -54,7 +54,29 @@ const ManageQuestionSet = () => {
             };
 
             await dispatch(createQuestionSet(paperSet)).unwrap();
-            toast.success('Question Set created successfully!');
+            // toast.success('Question Set created successfully!');
+            Swal.fire({
+                            html:`<div class="custon-error-container">
+                                          <div class="custom-swal-icon-wrapper">
+                                          <i class="fa fa-check-circle custom-success-icon"></i>
+                                          </div>
+                                          <hr class="custom-error-divider" />
+                                          <div class="custom-error-message capitalize">Question Set created successfully!</div>
+                                          </div>`,
+                                          toast:false,
+                                          position:"center",
+                                          color:"#000",
+                                          timer: 3000,
+                                          timerProgressBar: true,
+                                          backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                          customClass: {
+                                            popup: "custom-swal-popup",
+                                            actions: "swal-center-actions",
+                                            icon: "custom-swal-icon",
+                                          }
+                        })
             dispatch(fetchQuestionSetsBySectorJobRole(selectedSector._id));
 
 
@@ -133,7 +155,29 @@ const ManageQuestionSet = () => {
     const handleCopyId = (rowData) => {
         if (rowData && rowData._id) {
             navigator.clipboard.writeText(rowData._id);
-            toast.success('Question Set Id copied to clipboard!');
+            // toast.success('Question Set Id copied to clipboard!');
+            Swal.fire({
+                            html:`<div class="custon-error-container">
+                                          <div class="custom-swal-icon-wrapper">
+                                          <i class="fa fa-check-circle custom-success-icon"></i>
+                                          </div>
+                                          <hr class="custom-error-divider" />
+                                          <div class="custom-error-message capitalize">Question Set Id copied to clipboard!</div>
+                                          </div>`,
+                                          toast:false,
+                                          position:"center",
+                                          color:"#000",
+                                          timer: 3000,
+                                          timerProgressBar: true,
+                                          backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                          customClass: {
+                                            popup: "custom-swal-popup",
+                                            actions: "swal-center-actions",
+                                            icon: "custom-swal-icon",
+                                          }
+                        })
         }
     };
 
@@ -151,7 +195,29 @@ const ManageQuestionSet = () => {
 
     const confirmActionHandler = async () => {
         if (!selectedQuestionSet || !selectedQuestionSet._id) {
-            toast.error('Invalid question set selected');
+            // toast.error('Invalid question set selected');
+            Swal.fire({
+                            html:`<div class="custon-error-container">
+                                          <div class="custom-swal-icon-wrapper">
+                                          <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                          </div>
+                                          <hr class="custom-error-divider" />
+                                          <div class="custom-error-message capitalize">Invalid question set selected</div>
+                                          </div>`,
+                                          toast:false,
+                                          position:"center",
+                                          color:"#000",
+                                          timer: 3000,
+                                          timerProgressBar: true,
+                                          backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                          customClass: {
+                                            popup: "custom-swal-popup",
+                                            actions: "swal-center-actions",
+                                            icon: "custom-swal-icon",
+                                          }
+                        })
             return;
         }
 

@@ -6,12 +6,12 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { useEffect, useRef, useState } from 'react';
-import toast from 'react-hot-toast';
 import { FaEdit } from 'react-icons/fa';
 import { IoMdAdd, IoMdClose } from 'react-icons/io';
 import { VscClearAll } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 import { fetchCitiesByStateId } from '../features/citySlice';
 import { fetchAllCountries } from '../features/countrySlice';
 import { fetchStates } from '../features/stateSlice';
@@ -72,7 +72,6 @@ const ManageTc = () => {
     useEffect(() => {
         saveFormData();
     }, [selectedCountry, selectedState, selectedCity, selectedTp]);
-
 
     useEffect(() => {
         dispatch(fetchAllCountries());
@@ -213,16 +212,34 @@ const ManageTc = () => {
         setIsViewFormVisible(true);
     };
 
-
-
     const handleCopyId = (rowData) => {
         if (rowData && rowData._id) {
             navigator.clipboard.writeText(rowData._id);
-            toast.success('TC ID copied to clipboard!');
+            // toast.success('TC ID copied to clipboard!');
+            Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fa fa-check-circle custom-success-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">TC ID copied to clipboard!</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
         }
     };
-
-
 
     const menuRefs = useRef([]);
     const actionBodyTemplate = (rowData, options) => {

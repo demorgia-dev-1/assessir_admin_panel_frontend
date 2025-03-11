@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { MultiSelect } from 'primereact/multiselect';
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 import { BASE_URL } from '../constant';
 import { setSelectedBatch, setSelectedJobRole, setSelectedSector } from '../features/assignTestSlice';
 import { fetchBatchesBySectorJobRole } from '../features/batchSlice';
 import { fetchJobRolesBySector } from '../features/jobRoleSlice';
 import { fetchSectors } from '../features/subAdminSlice';
+
 
 function ManageBatchAnalytics() {
     const dispatch = useDispatch();
@@ -97,12 +98,56 @@ function ManageBatchAnalytics() {
             );
 
             if(response.data.success) {
-                toast.success('Link generated successfully');
+                // toast.success('Link generated successfully');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fa fa-check-circle custom-success-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">link generated successfully</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
             console.log('Link generated:', response.data);
             fetchData();
             }
         } catch (error) {
-            toast.error(error.response.data.message);
+            // toast.error(error.response.data.message);
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">${error.response.data.message}</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             console.error('Error generating link:', error);
         }
     };

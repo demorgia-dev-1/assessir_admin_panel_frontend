@@ -9,18 +9,19 @@ import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import toast from 'react-hot-toast';
 import { FaEdit } from 'react-icons/fa';
 import { IoMdAdd, IoMdClose, IoMdCloudUpload } from 'react-icons/io';
 import { MdOutlineNoteAdd } from 'react-icons/md';
 import { VscClearAll } from 'react-icons/vsc';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { BASE_URL } from '../constant';
 import { fetchJobRolesBySector } from '../features/jobRoleSlice';
 import { fetchNos } from '../features/nosSlice';
 import { createPC, deletePC, fetchPCs, setSelectedJobRole, setSelectedNOS, setSelectedSector, updatePC } from '../features/pcSlice';
 import { fetchSectors } from '../features/subAdminSlice';
+
 
 
 
@@ -80,7 +81,29 @@ const ManagePCDetails = () => {
                 handleClear();
             });
         } else {
-            toast.error('Please fill in all required fields.');
+            // toast.error('Please fill in all required fields.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Please fill in all required fields.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -123,7 +146,29 @@ const ManagePCDetails = () => {
             const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
             saveAs(blob, 'sample_bulk_upload_pc.xlsx');
         } else {
-            toast.error('No NOS available in this job role to create the workbook.');
+            // toast.error('No NOS available in this job role to create the workbook.');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">No NOS available in this job role to create the workbook.</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -155,7 +200,29 @@ const ManagePCDetails = () => {
                     if (PCName && PCCode && TotalMarks !== undefined) {
                         const nos = noses.find(n => n.nosCode.replace(/[:\\/?*[\]]/g, '') === sheetName);
                         if (!nos) {
-                            toast.error(`No matching NOS found for sheet name: ${sheetName}`);
+                            // toast.error(`No matching NOS found for sheet name: ${sheetName}`);
+                            Swal.fire({
+                                html:`<div class="custon-error-container">
+                                              <div class="custom-swal-icon-wrapper">
+                                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                              </div>
+                                              <hr class="custom-error-divider" />
+                                              <div class="custom-error-message capitalize">${`No matching NOS found for sheet name: ${sheetName}`}</div>
+                                              </div>`,
+                                              toast:false,
+                                              position:"center",
+                                              color:"#000",
+                                              timer: 3000,
+                                              timerProgressBar: true,
+                                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                              customClass: {
+                                                popup: "custom-swal-popup",
+                                                actions: "swal-center-actions",
+                                                icon: "custom-swal-icon",
+                                              }
+                            })
                             console.error(`No matching NOS found for sheet name: ${sheetName}`);
                             return null;
                         }
@@ -175,7 +242,29 @@ const ManagePCDetails = () => {
                 }).filter(item => item !== null);
             });
             if (transformedData.length === 0) {
-                toast.error('No valid data found in the uploaded file.');
+                // toast.error('No valid data found in the uploaded file.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">No valid data found in the uploaded file.</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
                 return;
             }
             try {
@@ -188,14 +277,80 @@ const ManagePCDetails = () => {
 
                 if (response.status === 200) {
                     handleClear();
-                    toast.success('Data uploaded successfully!');
+                    // toast.success('Data uploaded successfully!');
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fa fa-check-circle custom-success-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">Data uploaded successfully!</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                     dispatch(fetchPCs(selectedNOS._id));
                 } else {
-                    toast.error('Error uploading data.');
+                    // toast.error('Error uploading data.');
+                    Swal.fire({
+                        html:`<div class="custon-error-container">
+                                      <div class="custom-swal-icon-wrapper">
+                                      <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                      </div>
+                                      <hr class="custom-error-divider" />
+                                      <div class="custom-error-message capitalize">Error uploading data.</div>
+                                      </div>`,
+                                      toast:false,
+                                      position:"center",
+                                      color:"#000",
+                                      timer: 3000,
+                                      timerProgressBar: true,
+                                      backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                      customClass: {
+                                        popup: "custom-swal-popup",
+                                        actions: "swal-center-actions",
+                                        icon: "custom-swal-icon",
+                                      }
+                    })
                 }
             } catch (error) {
                 console.error('Error uploading data:', error);
-                toast.error('Error uploading data.');
+                // toast.error('Error uploading data.');
+                Swal.fire({
+                    html:`<div class="custon-error-container">
+                                  <div class="custom-swal-icon-wrapper">
+                                  <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                  </div>
+                                  <hr class="custom-error-divider" />
+                                  <div class="custom-error-message capitalize">Error uploading data.</div>
+                                  </div>`,
+                                  toast:false,
+                                  position:"center",
+                                  color:"#000",
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                                  customClass: {
+                                    popup: "custom-swal-popup",
+                                    actions: "swal-center-actions",
+                                    icon: "custom-swal-icon",
+                                  }
+                })
             }
         };
 
@@ -306,7 +461,29 @@ const ManagePCDetails = () => {
                 dispatch(fetchPCs(selectedNOS._id));
             }
         } catch (error) {
-            toast.error("An error occurred");
+            // toast.error("An error occurred");
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">An error occurred</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
@@ -325,13 +502,57 @@ const ManagePCDetails = () => {
     const handleCopyId = (rowData) => {
         if (rowData && rowData._id) {
             navigator.clipboard.writeText(rowData._id);
-            toast.success('PC ID copied to clipboard!');
+            // toast.success('PC ID copied to clipboard!');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fa fa-check-circle custom-success-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">PC ID copied to clipboard!</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
         }
     };
 
     const confirmActionHandler = async () => {
         if (!selectedPC || !selectedPC._id) {
-            toast.error('Invalid PC selected');
+            // toast.error('Invalid PC selected');
+            Swal.fire({
+                html:`<div class="custon-error-container">
+                              <div class="custom-swal-icon-wrapper">
+                              <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                              </div>
+                              <hr class="custom-error-divider" />
+                              <div class="custom-error-message capitalize">Invalid PC selected</div>
+                              </div>`,
+                              toast:false,
+                              position:"center",
+                              color:"#000",
+                              timer: 3000,
+                              timerProgressBar: true,
+                              backdrop: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false, 
+                              customClass: {
+                                popup: "custom-swal-popup",
+                                actions: "swal-center-actions",
+                                icon: "custom-swal-icon",
+                              }
+            })
             return;
         }
         const pcId = selectedPC._id;
