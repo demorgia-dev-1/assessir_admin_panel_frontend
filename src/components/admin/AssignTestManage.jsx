@@ -63,7 +63,8 @@ const ManageAssignTest = () => {
             selectedTc, selectedTheoryQuestionSet, selectedPracticalQuestionSet,
             selectedVivaQuestionSet, selectedCountry, selectedState, selectedCity,
             assessorDetails, tcDetails, isCandidatePhotosRequired, isCandidateVideoRequired,
-            isCandidateLocationRequired, isCandidateAdharRequired, isCandidateSelfieRequired
+            isCandidateLocationRequired, isCandidateAdharRequired, isCandidateSelfieRequired,
+            isAiRequired
         };
         sessionStorage.setItem('assignTestFormData', JSON.stringify(formData));
     };
@@ -88,6 +89,7 @@ const ManageAssignTest = () => {
             setIsCandidateLocationRequired(formData.isCandidateLocationRequired);
             setisCandidateAdharRequired(formData.isCandidateAdharRequired);
             setIsCandidateSelfieRequired(formData.isCandidateSelfieRequired);
+            setIsAiRequired(formData.isAiRequired);
         }
     };
 

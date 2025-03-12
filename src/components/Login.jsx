@@ -2,7 +2,6 @@
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { HiArrowCircleRight } from "react-icons/hi";
 import { Link, Navigate } from 'react-router-dom';
@@ -37,14 +36,80 @@ function Login({ onLogin }) {
     const validateForm = () => {
         let isValid = true;
         if (!formData.email) {
-            toast.error("Email is required");
+            // toast.error("Email is required");
+             Swal.fire({
+                            html:`<div class="custon-error-container">
+                                          <div class="custom-swal-icon-wrapper">
+                                          <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                          </div>
+                                          <hr class="custom-error-divider" />
+                                          <div class="custom-error-message capitalize">email is required</div>
+                                          </div>`,
+                                          toast:false,
+                                          position:"center",
+                                          color:"#000",
+                                          timer: 3000,
+                                          timerProgressBar: true,
+                                          backdrop: true,
+                  allowOutsideClick: false,
+                  allowEscapeKey: false, 
+                                          customClass: {
+                                            popup: "custom-swal-popup",
+                                            actions: "swal-center-actions",
+                                            icon: "custom-swal-icon",
+                                          }
+                        })
             isValid = false;
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            toast.error("Invalid email address");
+            // toast.error("Invalid email address");
+             Swal.fire({
+                            html:`<div class="custon-error-container">
+                                          <div class="custom-swal-icon-wrapper">
+                                          <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                          </div>
+                                          <hr class="custom-error-divider" />
+                                          <div class="custom-error-message capitalize">invalid email address</div>
+                                          </div>`,
+                                          toast:false,
+                                          position:"center",
+                                          color:"#000",
+                                          timer: 3000,
+                                          timerProgressBar: true,
+                                          backdrop: true,
+                  allowOutsideClick: false,
+                  allowEscapeKey: false, 
+                                          customClass: {
+                                            popup: "custom-swal-popup",
+                                            actions: "swal-center-actions",
+                                            icon: "custom-swal-icon",
+                                          }
+                        })
             isValid = false;
         }
         if (!formData.password) {
-            toast.error("Password is required");
+            // toast.error("Password is required");
+             Swal.fire({
+                            html:`<div class="custon-error-container">
+                                          <div class="custom-swal-icon-wrapper">
+                                          <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                          </div>
+                                          <hr class="custom-error-divider" />
+                                          <div class="custom-error-message capitalize">password is required</div>
+                                          </div>`,
+                                          toast:false,
+                                          position:"center",
+                                          color:"#000",
+                                          timer: 3000,
+                                          timerProgressBar: true,
+                                          backdrop: true,
+                  allowOutsideClick: false,
+                  allowEscapeKey: false, 
+                                          customClass: {
+                                            popup: "custom-swal-popup",
+                                            actions: "swal-center-actions",
+                                            icon: "custom-swal-icon",
+                                          }
+                        })
             isValid = false;
         }
         return isValid;

@@ -1343,7 +1343,6 @@ const ManageBatch = () => {
                                 />
                             </div>
 
-
                             <div className="flex flex-col flex-1">
                                 <label htmlFor="assessmentDuration" className="font-semibold">Assessment Duration(Minutes)</label>
                                 <input
@@ -1699,7 +1698,37 @@ const ManageBatch = () => {
                         />
                     </span>
                 </div>
-                <div className="max-w-[23rem] p-1 md:max-w-[29rem] sm:max-w-[42rem] lg:max-w-[44rem] xl:max-w-[85rem]">
+                {/* <div className="w-full overflow-x-auto">
+                    <div className="min-w-[20rem] p-1 md:min-w-[29rem] sm:min-w-[42rem] lg:min-w-[44rem] xl:min-w-[85rem]">
+                    <DataTable
+                    value={filteredBatches}
+        paginator
+        rows={10}
+        rowsPerPageOptions={[5, 10, 20, 50, 100]}
+        scrollable
+        globalFilter={globalFilter}
+        className="bg-white border border-gray-200"
+        style={{ minWidth: "1200px" }}
+                    >
+                        <Column body={actionBodyTemplate} header="Actions" className="py-2 px-4 border-b" />
+                        <Column body={addCandidateTemplate} header="Add Candidate" className="py-2 px-4 border-b text-center" />
+                        <Column field="_id" header="Batch Id" className="py-2 px-4 border-b" />
+                        <Column field="no" header="Batch No" className="py-2 px-4 border-b" />
+                        <Column field="name" header="Batch Name" className="py-2 px-4 border-b" />
+                        <Column body={batchStatusTemplate} header="Batch Status" className="py-2 px-4 border-b text-center" />
+                        <Column field="assessor.name" header="Assessor" className="py-2 px-4 border-b text-center" />
+                        <Column field="type" header="Batch Type" className="py-2 px-4 border-b text-center" />
+                        <Column field="noOfCandidates" header="Candidates" className="py-2 px-4 border-b text-center" />
+                        <Column body={startDateBodyTemplate} header="Start Date(yyyy-mm-dd)" className="py-2 px-3 border-b" style={{ width: '200px' }} />
+                        <Column body={endDateBodyTemplate} header="End Date(yyyy-mm-dd)" className="py-2 px-3 border-b" style={{ width: '200px' }} />
+                        <Column field="durationInMin" header="Duration" className="py-2 px-4 border-b text-center" />
+                        <Column header="Sector" body={renderSectorShortName} className="py-2 px-4 border-b" />
+                        <Column field="jobRole.name" header="Job Role" className="py-2 px-4 border-b" />
+
+                    </DataTable> 
+                    </div>
+                    </div> */}
+                <div className="max-w-[23rem] p-1 md:max-w-[50rem] sm:max-w-[30rem] lg:max-w-[76rem]">
 
                     <DataTable
                         value={filteredBatches}
