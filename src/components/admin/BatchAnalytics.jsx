@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import BarChart from "../Charts/BarCharts";
 import { BASE_URL } from "../constant";
 
-
 function BatchAnalytics() {
   const [matrics, setMatrics] = React.useState();
   const params = useParams();
@@ -393,45 +392,50 @@ function BatchAnalytics() {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
-  //  toast.success('Link copied to clipboard');
-   Swal.fire({
-    html:`<div class="custon-error-container">
-                  <div class="custom-swal-icon-wrapper">
-                  <i class="fa fa-check-circle custom-success-icon"></i>
-                  </div>
-                  <hr class="custom-error-divider" />
-                  <div class="custom-error-message capitalize">link copied to clipboard</div>
-                  </div>`,
-                  toast:false,
-                  position:"center",
-                  color:"#000",
-                  timer: 3000,
-                  timerProgressBar: true,
-                  backdrop: true,
+    //  toast.success('Link copied to clipboard');
+    Swal.fire({
+      html: `
+      <div class="custon-error-container">
+        <div class="custom-swal-icon-wrapper">
+          <i class="fa fa-check-circle custom-success-icon"></i>
+        </div>
+        <hr class="custom-error-divider" />
+        <div class="custom-error-message capitalize">link copied to clipboard</div>
+      </div>`,
+      toast: false,
+      position: "center",
+      color: "#000",
+      timer: 3000,
+      timerProgressBar: true,
+      backdrop: true,
       allowOutsideClick: false,
       allowEscapeKey: false,
-                  customClass: {
-                    popup: "custom-swal-popup",
-                    actions: "swal-center-actions",
-                    icon: "custom-swal-icon",
-                  }
-})
+      customClass: {
+        popup: "custom-swal-popup",
+        actions: "swal-center-actions",
+        icon: "custom-swal-icon",
+      },
+    });
   };
-
-
 
   return (
     <div className="flex-col items-center justify-center gap-5 p-[25px]">
-      <h2 className="text-xl font-bold mb-4 ml-1 text-center sm:text-left">Batch Analytics</h2>
+      <h2 className="text-xl font-bold mb-4 ml-1 text-center sm:text-left">
+        Batch Analytics
+      </h2>
       <div className="flex items-center mb-7">
-        <a href={window.location.href} className="text-sm text-gray-600 mr-4 font-semibold">
-          Share Link: <span className="text-blue-600">{window.location.href}</span> 
+        <a
+          href={window.location.href}
+          className="text-sm text-gray-600 mr-4 font-semibold"
+        >
+          Share Link:{" "}
+          <span className="text-blue-600">{window.location.href}</span>
         </a>
         <button
           onClick={copyToClipboard}
           className="bg-blue-600 text-white text-sm px-3 py-1 rounded-md flex items-center gap-1"
         >
-         <MdContentCopy /> <span>Copy</span>
+          <MdContentCopy /> <span>Copy</span>
         </button>
       </div>
       <label
