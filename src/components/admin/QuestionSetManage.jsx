@@ -36,6 +36,7 @@ const ManageQuestionSet = () => {
     name: "",
     type: "",
   });
+<<<<<<< HEAD
 
   const dispatch = useDispatch();
   const { sectors, jobRoles, selectedSector, selectedJobRole, questionSets } =
@@ -127,6 +128,98 @@ const ManageQuestionSet = () => {
   const handleEditFormSubmit = async (e) => {
     e.preventDefault();
 
+=======
+
+  const dispatch = useDispatch();
+  const { sectors, jobRoles, selectedSector, selectedJobRole, questionSets } =
+    useSelector((state) => state.questionSet);
+
+  useEffect(() => {
+    dispatch(fetchSectors());
+    if (selectedSector) {
+      dispatch(fetchJobRolesBySector(selectedSector._id));
+      dispatch(fetchQuestionSetsBySectorJobRole(selectedSector._id));
+    }
+  }, [dispatch, selectedSector]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (paperSetType && selectedSector && selectedJobRole) {
+      const paperSet = {
+        type: paperSetType,
+        sector: selectedSector._id,
+        jobRole: selectedJobRole._id,
+      };
+
+      await dispatch(createQuestionSet(paperSet)).unwrap();
+      // toast.success('Question Set created successfully!');
+      Swal.fire({
+        html: `<div class="custon-error-container">
+                                          <div class="custom-swal-icon-wrapper">
+                                          <i class="fa fa-check-circle custom-success-icon"></i>
+                                          </div>
+                                          <hr class="custom-error-divider" />
+                                          <div class="custom-error-message capitalize">Question Set created successfully!</div>
+                                          </div>`,
+        toast: false,
+        position: "center",
+        color: "#000",
+        timer: 3000,
+        timerProgressBar: true,
+        backdrop: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        customClass: {
+          popup: "custom-swal-popup",
+          actions: "swal-center-actions",
+          icon: "custom-swal-icon",
+        },
+      });
+      dispatch(fetchQuestionSetsBySectorJobRole(selectedSector._id));
+    }
+  };
+  const handleClear = () => {
+    setPaperSetType("");
+    dispatch(setSelectedSector(null));
+    dispatch(setSelectedJobRole(null));
+  };
+
+  const handleSectorChange = (e) => {
+    const sectorId = e.target.value;
+    const sector = sectors.find((c) => c._id === sectorId);
+    dispatch(setSelectedSector(sector));
+  };
+
+  const handleJobRoleChange = (e) => {
+    const jobRoleId = e.target.value;
+    const jobRole = jobRoles.find((c) => c._id === jobRoleId);
+    dispatch(setSelectedJobRole(jobRole));
+  };
+
+  const handleEditClick = (rowData) => {
+    setEditFormData({
+      _id: rowData._id,
+      name: rowData.name,
+      type: rowData.type,
+    });
+    setIsEditFormVisible(true);
+  };
+
+  const handleEditFormChange = (e) => {
+    const { name, value } = e.target;
+    console.log(`Changing ${name} to ${value}`);
+    setEditFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    console.log("Updated editFormData:", { ...editFormData, [name]: value });
+  };
+
+  const handleEditFormSubmit = async (e) => {
+    e.preventDefault();
+
+>>>>>>> b9c2faf80864ec52139803dd80b7cc4356333843
     const { _id, ...updatedQuestionSet } = {
       ...editFormData,
     };
@@ -158,6 +251,7 @@ const ManageQuestionSet = () => {
       navigator.clipboard.writeText(rowData._id);
       // toast.success('Question Set Id copied to clipboard!');
       Swal.fire({
+<<<<<<< HEAD
         html: `
         <div class="custon-error-container">
             <div class="custom-swal-icon-wrapper">
@@ -166,6 +260,15 @@ const ManageQuestionSet = () => {
             <hr class="custom-error-divider" />
             <div class="custom-error-message capitalize">Question Set Id copied to clipboard!</div>
         </div>`,
+=======
+        html: `<div class="custon-error-container">
+                                          <div class="custom-swal-icon-wrapper">
+                                          <i class="fa fa-check-circle custom-success-icon"></i>
+                                          </div>
+                                          <hr class="custom-error-divider" />
+                                          <div class="custom-error-message capitalize">Question Set Id copied to clipboard!</div>
+                                          </div>`,
+>>>>>>> b9c2faf80864ec52139803dd80b7cc4356333843
         toast: false,
         position: "center",
         color: "#000",
@@ -199,6 +302,7 @@ const ManageQuestionSet = () => {
     if (!selectedQuestionSet || !selectedQuestionSet._id) {
       // toast.error('Invalid question set selected');
       Swal.fire({
+<<<<<<< HEAD
         html: `
         <div class="custon-error-container">
             <div class="custom-swal-icon-wrapper">
@@ -207,6 +311,15 @@ const ManageQuestionSet = () => {
             <hr class="custom-error-divider" />
             <div class="custom-error-message capitalize">Invalid question set selected</div>
         </div>`,
+=======
+        html: `<div class="custon-error-container">
+                                          <div class="custom-swal-icon-wrapper">
+                                          <i class="fas fa-exclamation-circle custom-error-icon"></i>
+                                          </div>
+                                          <hr class="custom-error-divider" />
+                                          <div class="custom-error-message capitalize">Invalid question set selected</div>
+                                          </div>`,
+>>>>>>> b9c2faf80864ec52139803dd80b7cc4356333843
         toast: false,
         position: "center",
         color: "#000",
@@ -505,7 +618,13 @@ const ManageQuestionSet = () => {
             className="pi pi-exclamation-triangle px-5"
             style={{ fontSize: "1rem", color: "orange" }}
           ></i>
+<<<<<<< HEAD
           <span>Are you sure you want to {confirmAction} this job role?</span>
+=======
+          <span>
+            Are you sure you want to {confirmAction} this question set?
+          </span>
+>>>>>>> b9c2faf80864ec52139803dd80b7cc4356333843
         </div>
         <div className="flex justify-end space-x-4 mt-4">
           <Button
