@@ -505,13 +505,9 @@ const ManageQuestionSet = () => {
             className="pi pi-exclamation-triangle px-5"
             style={{ fontSize: "1rem", color: "orange" }}
           ></i>
-<<<<<<< HEAD
-          <span>Are you sure you want to {confirmAction} this job role?</span>
-=======
           <span>
             Are you sure you want to {confirmAction} this question set?
           </span>
->>>>>>> b9c2faf80864ec52139803dd80b7cc4356333843
         </div>
         <div className="flex justify-end space-x-4 mt-4">
           <Button
